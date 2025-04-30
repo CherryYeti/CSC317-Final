@@ -4,24 +4,24 @@
  */
 
 // Load environment variables from .env file
-require('dotenv').config();
+require("dotenv").config();
 
 // Core dependencies
-const express = require('express');
-const path = require('path');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const mongoose = require('mongoose');
-const csrf = require('csurf');
+const express = require("express");
+const path = require("path");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const mongoose = require("mongoose");
+const csrf = require("csurf");
 
 // Import routes
-const indexRoutes = require('./routes/index');
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
+const indexRoutes = require("./routes/index");
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 // Import custom middleware
-const { setLocals } = require('./middlewares/locals');
-const { handleErrors } = require('./middlewares/error-handler');
+const { setLocals } = require("./middlewares/locals");
+const { handleErrors } = require("./middlewares/error-handler");
 
 // Initialize Express app
 const app = express();
@@ -29,8 +29,8 @@ const app = express();
 // Connect to MongoDB (with error handling that doesn't crash the app)
 if (process.env.MONGODB_URI) {
   // Completely disable indexing in Mongoose
-  mongoose.set('autoIndex', false);
-  mongoose.set('autoCreate', false);
+  mongoose.set("autoIndex", false);
+  mongoose.set("autoCreate", false);
 
   // Set Mongoose options to handle MongoDB version differences
   const mongooseOptions = {
@@ -38,38 +38,47 @@ if (process.env.MONGODB_URI) {
     maxPoolSize: 10,
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-    family: 4 // Use IPv4, skip trying IPv6
+    family: 4, // Use IPv4, skip trying IPv6
   };
 
-  mongoose.connect(process.env.MONGODB_URI, mongooseOptions)
-    .then(() => console.log('MongoDB connected successfully'))
-    .catch(err => {
-      console.error('MongoDB connection error:', err);
-      console.log('Continuing without MongoDB. Some features may not work.');
+  mongoose
+    .connect(process.env.MONGODB_URI, mongooseOptions)
+    .then(() => console.log("MongoDB connected successfully"))
+    .catch((err) => {
+      console.error("MongoDB connection error:", err);
+      console.log("Continuing without MongoDB. Some features may not work.");
     });
 } else {
-  console.log('No MONGODB_URI found in environment. Continuing without database connection.');
-  console.log('Please set up your MongoDB connection in the .env file to enable authentication features.');
+  console.log(
+    "No MONGODB_URI found in environment. Continuing without database connection.",
+  );
+  console.log(
+    "Please set up your MongoDB connection in the .env file to enable authentication features.",
+  );
 }
 
 // Configure Express
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Set up EJS view engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Helper function for error responses
 app.locals.helpers = {
   isActiveRoute: (path, route) => path === route,
   currentYear: () => new Date().getFullYear(),
   formatDate: (date) => {
-    if (!date) return '';
+    if (!date) return "";
     const d = new Date(date);
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  }
+    return d.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  },
 };
 
 // Session configuration
@@ -80,13 +89,15 @@ let sessionConfig = {
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict'
-  }
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  },
 };
 
 // For now, let's avoid using MongoDB as a session store to prevent index creation issues
-console.log('Using memory session store (not persistent, but will work for development)');
+console.log(
+  "Using memory session store (not persistent, but will work for development)",
+);
 
 // If you want to try using MongoDB store, uncomment this:
 /*
@@ -141,7 +152,7 @@ try {
 
 // Provide a dummy CSRF token for templates
 app.use((req, res, next) => {
-  res.locals.csrfToken = 'csrf-protection-disabled';
+  res.locals.csrfToken = "csrf-protection-disabled";
   next();
 });
 
@@ -149,9 +160,9 @@ app.use((req, res, next) => {
 app.use(setLocals);
 
 // Routes
-app.use('/', indexRoutes);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use("/", indexRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 // Error handling middleware
 app.use(handleErrors);
