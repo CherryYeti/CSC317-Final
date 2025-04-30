@@ -2,12 +2,10 @@
  * Main JavaScript file for client-side functionality
  */
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Load the saved theme from localStorage
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    document.documentElement.setAttribute("data-theme", savedTheme);
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  // Load the saved theme from localStorage or default to light
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
 
   // Handle flash message dismissal
   const flashMessages = document.querySelectorAll(".flash-message");
@@ -33,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     inputs.forEach((input) => {
       // Add visual feedback on input validation
-      input.addEventListener("input", function () {
+      input.addEventListener("input", function() {
         if (this.validity.valid) {
           this.classList.remove("invalid");
           this.classList.add("valid");
@@ -45,13 +43,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Theme toggle functionality
+  // Enhanced theme toggle functionality
   const toggleTheme = () => {
     const html = document.documentElement;
     const currentTheme = html.getAttribute("data-theme");
     const newTheme = currentTheme === "light" ? "dark" : "light";
+    
+    // Add a subtle animation during transition
+    html.classList.add("theme-transition");
+    
+    // Apply the new theme
     html.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme); // Save the theme to localStorage
+    localStorage.setItem("theme", newTheme);
+    
+    // Remove the transition class after the animation completes
+    setTimeout(() => {
+      html.classList.remove("theme-transition");
+    }, 300);
   };
 
   const themeToggleBtn = document.getElementById("theme-toggle-btn");

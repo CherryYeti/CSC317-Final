@@ -13,8 +13,16 @@
           <a href="/">Auth Template</a>
         </div>
         <ul class="nav-links">
-          <li><button id="theme-toggle-btn">Toggle Theme</button></li>
-
+          <li>
+            <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">
+              <!-- Sun icon shows in dark mode (to switch to light) -->
+              <img src="/icons/sun-dark.svg" alt="Switch to light mode" class="sun-icon">
+              
+              <!-- Moon icon shows in light mode (to switch to dark) -->
+              <img src="/icons/moon-light.svg" alt="Switch to dark mode" class="moon-icon">
+            </button>
+          </li>
+    
           <li>
             <a href="/" class="<%= path === '/' ? 'active' : '' %>">Home</a>
           </li>
