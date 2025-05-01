@@ -191,7 +191,7 @@ input:focus {
 
 .primary-btn {
   background-color: var(--primary-color);
-  color: var(--white);
+  color: black !important;
 }
 
 .primary-btn:hover {
@@ -200,7 +200,7 @@ input:focus {
 
 .secondary-btn {
   background-color: var(--secondary-color);
-  color: var(--white);
+  color: black !important;
 }
 
 .secondary-btn:hover {
@@ -211,6 +211,7 @@ input:focus {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 /* 
@@ -563,21 +564,21 @@ details pre {
   }
 }
 
-/* Dark Mode Styles */
+/* Dark Mode Styles - Modern Edition */
 html[data-theme="dark"] {
-  --primary-color: #1abc9c;
-  --primary-dark: #16a085;
-  --secondary-color: #e67e22;
-  --secondary-dark: #d35400;
-  --text-color: #ecf0f1;
-  --text-light: #bdc3c7;
-  --background-color: #2c3e50;
-  --border-color: #34495e;
-  --error-color: #e74c3c;
-  --success-color: #2ecc71;
-  --warning-color: #f39c12;
-  --white: #34495e;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --primary-color: #08d9d6;
+  --primary-dark: #06b6b3;
+  --secondary-color: #ff5e78;
+  --secondary-dark: #ff2e57;
+  --text-color: #eaeaea;
+  --text-light: #b0b0b0;
+  --background-color: #121212;
+  --border-color: #2a2a2a;
+  --error-color: #ff5e57;
+  --success-color: #00b894;
+  --warning-color: #fdcb6e;
+  --white: #1e1e1e;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 html[data-theme="dark"] body {
@@ -596,6 +597,7 @@ html[data-theme="dark"] a:hover {
 html[data-theme="dark"] header {
   background-color: var(--white);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
 }
 
 html[data-theme="dark"] footer {
@@ -613,52 +615,57 @@ html[data-theme="dark"] .error-box {
   background-color: var(--white);
   color: var(--text-color);
   box-shadow: var(--shadow);
+  border-radius: 12px;
 }
 
 html[data-theme="dark"] .form-errors {
-  background-color: rgba(231, 76, 60, 0.2);
+  background-color: rgba(255, 94, 87, 0.15);
+  border-left: 4px solid var(--error-color);
+  border-radius: 8px;
 }
 
 html[data-theme="dark"] .flash-message.success {
-  background-color: rgba(46, 204, 113, 0.2);
+  background-color: rgba(0, 184, 148, 0.15);
+  border-radius: 8px;
 }
 
 html[data-theme="dark"] .flash-message.error {
-  background-color: rgba(231, 76, 60, 0.2);
+  background-color: rgba(255, 94, 87, 0.15);
+  border-radius: 8px;
 }
 
 html[data-theme="dark"] .flash-message.warning {
-  background-color: rgba(243, 156, 18, 0.2);
+  background-color: rgba(253, 203, 110, 0.15);
+  border-radius: 8px;
 }
 
 html[data-theme="dark"] .feature-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
-
-/* Adjust other components as needed for dark mode */
 
 /* Theme toggle button styling */
 .theme-toggle {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px;
+  padding: 8px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .theme-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.08);
   transform: scale(1.1);
 }
 
 html[data-theme="dark"] .theme-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-toggle:active {
@@ -669,7 +676,8 @@ html[data-theme="dark"] .theme-toggle:hover {
 .theme-toggle img {
   width: 24px;
   height: 24px;
-  transition: opacity 0.3s ease, transform 0.2s ease;
+  transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Show appropriate icon based on current theme */
@@ -692,9 +700,13 @@ html[data-theme="dark"] .moon-icon {
 /* Add a smooth transition for theme changes */
 .theme-transition,
 .theme-transition * {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+  transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 html {
-  transition: color 0.3s ease, background-color 0.3s ease;
+  transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
