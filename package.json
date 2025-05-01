@@ -1,7 +1,7 @@
 {
-  "name": "user-authentication-template",
+  "name": "client-sphere",
   "version": "1.0.0",
-  "description": "A starter template for web applications with user authentication",
+  "description": "ClientSphere is a CRM built using HMTL, CSS, and MongoDB, designed to be lightweight and responsive.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
