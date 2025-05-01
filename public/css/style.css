@@ -676,8 +676,9 @@ html[data-theme="dark"] .theme-toggle:hover {
 .theme-toggle img {
   width: 24px;
   height: 24px;
-  transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition:
+    opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Show appropriate icon based on current theme */
@@ -700,13 +701,15 @@ html[data-theme="dark"] .moon-icon {
 /* Add a smooth transition for theme changes */
 .theme-transition,
 .theme-transition * {
-  transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transition:
+    background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 html {
-  transition: color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition:
+    color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
