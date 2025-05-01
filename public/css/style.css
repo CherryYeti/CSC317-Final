@@ -82,6 +82,7 @@ header {
 .nav-links {
   display: flex;
   list-style: none;
+  align-items: center;
   gap: 20px;
 }
 
