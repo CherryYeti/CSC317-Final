@@ -2,7 +2,90 @@
 
 <div class="container">
   <% if (isAuthenticated) { %>
-    <!-- Only show the action buttons when authenticated -->
+    <!--This is shown when the user is logged in-->
+    <!--This is shown when the user is logged in-->
+    <div class="dashboard">
+      <!-- Top row - 4 equal cards -->
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Total Contacts</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Manage your complete contact database in one place.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Open Deals</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Track your active deals and their current status.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Activity</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>See your most recent customer interactions.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Tasks</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>View and manage your upcoming tasks.</p>
+        </div>
+      </div>
+      
+      <!-- Bottom row - left card is wider -->
+      <div class="dashboard-card wide">
+        <div class="card-header">
+          <h3 class="card-title">Sales Performance</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Track your sales metrics and performance over time.</p>
+          <p>View trends, identify opportunities, and make data-driven decisions.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card narrow">
+        <div class="card-header">
+          <h3 class="card-title">Reminders</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Important upcoming deadlines and follow-ups.</p>
+        </div>
+      </div>
+    </div>
    
   <% } else { %>
     <div class="welcome-section">
