@@ -164,7 +164,7 @@ app.use(setLocals);
 app.use("/", indexRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
-app.use("customers", customerRoutes); //2. Mount customer routes
+app.use("/customers", customerRoutes); //2. Mount customer routes
 
 // Error handling middleware
 app.use(handleErrors);
