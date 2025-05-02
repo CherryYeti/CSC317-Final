@@ -18,6 +18,7 @@ const csrf = require("csurf");
 const indexRoutes = require("./routes/index");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const customerRoutes = require("./routes/customer"); //1. Import customer routes
 
 // Import custom middleware
 const { setLocals } = require("./middlewares/locals");
@@ -159,10 +160,11 @@ app.use((req, res, next) => {
 // Our custom locals middleware
 app.use(setLocals);
 
-// Routes
+// Routes (Mounting sections for different routes))
 app.use("/", indexRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("customers", customerRoutes); //2. Mount customer routes
 
 // Error handling middleware
 app.use(handleErrors);
