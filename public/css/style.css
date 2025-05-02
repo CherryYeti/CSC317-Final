@@ -566,13 +566,13 @@ details pre {
 
 /* Dark Mode Styles - Modern Edition */
 html[data-theme="dark"] {
-  --primary-color: #08d9d6;
-  --primary-dark: #06b6b3;
-  --secondary-color: #ff5e78;
-  --secondary-dark: #ff2e57;
+  --primary-color: white;
+  --primary-dark:white;
+  --secondary-color:white;
+  --secondary-dark: white;
   --text-color: #eaeaea;
   --text-light: #b0b0b0;
-  --background-color: #121212;
+  --background-color: #000000;
   --border-color: #2a2a2a;
   --error-color: #ff5e57;
   --success-color: #00b894;
@@ -587,7 +587,7 @@ html[data-theme="dark"] body {
 }
 
 html[data-theme="dark"] a {
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 html[data-theme="dark"] a:hover {
@@ -595,13 +595,14 @@ html[data-theme="dark"] a:hover {
 }
 
 html[data-theme="dark"] header {
-  background-color: var(--white);
+  background-color: var(--background-color);
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--border-color);
 }
 
 html[data-theme="dark"] footer {
-  background-color: var(--white);
+  background-color: var(--background-color);
   color: var(--text-light);
 }
 
