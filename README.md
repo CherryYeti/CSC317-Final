@@ -11,3 +11,5 @@ ClientSphere is a CRM built using HMTL, CSS, and MongoDB, designed to be lightwe
 Theme/UI - Kevin
 
 Database - Jason
+
+Backend - Chadd
