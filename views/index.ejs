@@ -1,39 +1,128 @@
 <%- include('./partials/header') %>
 
 <div class="container">
-  <div class="welcome-section">
-    <h1><%= message %></h1>
-    <p>A simple authentication system for web applications</p>
-    
-    <% if (isAuthenticated) { %>
-      <div class="action-buttons">
+  <% if (isAuthenticated) { %>
+    <!--This is shown when the user is logged in-->
+    <!--This is shown when the user is logged in-->
+    <div class="dashboard">
+      <!-- Top row - 4 equal cards -->
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Total Contacts</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Manage your complete contact database in one place.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Open Deals</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Track your active deals and their current status.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Recent Activity</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>See your most recent customer interactions.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Tasks</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>View and manage your upcoming tasks.</p>
+        </div>
+      </div>
+      
+      <!-- Bottom row - left card is wider -->
+      <div class="dashboard-card wide">
+        <div class="card-header">
+          <h3 class="card-title">Sales Performance</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Track your sales metrics and performance over time.</p>
+          <p>View trends, identify opportunities, and make data-driven decisions.</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-card narrow">
+        <div class="card-header">
+          <h3 class="card-title">Reminders</h3>
+          <div class="card-icon">
+            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
+            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
+          </div>
+        </div>
+        <div class="card-content">
+          <p>Important upcoming deadlines and follow-ups.</p>
+        </div>
+      </div>
+    </div>
+   
+  <% } else { %>
+    <div class="welcome-section">
+      <h1>Welcome to ClientSphere</h1>
+      <div class="action-buttons"></div>
         <a href="/user/profile" class="btn primary-btn">View Profile</a>
       </div>
-    <% } else { %>
+    </div>    <div class="welcome-section">
+      <h1>
+        <%= message %>
+      </h1>
+      <p>ClientSphere is a CRM built using HMTL, CSS, and MongoDB, designed to be lightweight and responsive.</p>
       <div class="action-buttons">
         <a href="/auth/login" class="btn primary-btn">Login</a>
         <a href="/auth/register" class="btn secondary-btn">Register</a>
       </div>
-    <% } %>
-  </div>
-  
-  <div class="features-section">
-    <h2>Features</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <h3>User Authentication</h3>
-        <p>Secure login and registration with password hashing</p>
-      </div>
-      <div class="feature-card">
-        <h3>Session Management</h3>
-        <p>Persistent sessions with secure cookies</p>
-      </div>
-      <div class="feature-card">
-        <h3>Protected Routes</h3>
-        <p>Restrict access to authenticated users only</p>
+    </div>
+    
+    <div class="features-section">
+      <h2>Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Contact & Account Management</h3>
+          <p>Use a centralized database of customer and prospect records, including</p>
+          <ul>
+            <li>Basic details (name, company, role, contact info)</li>
+            <li>View a simple history log of interactions</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3>Basic Dashboard/Reports</h3>
+          <p>Counts of leads by status</p>
+          <p>Graph or table of won vs. lost deals over time</p>
+        </div>
       </div>
     </div>
-  </div>
+  <% } %>
 </div>
 
 <%- include('./partials/footer') %>

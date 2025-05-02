@@ -1,31 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> | Authentication Template</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <a href="/">Auth Template</a>
-      </div>
-      <ul class="nav-links">
-        <li><a href="/" class="<%= path === '/' ? 'active' : '' %>">Home</a></li>
-        <li><a href="/about" class="<%= path === '/about' ? 'active' : '' %>">About</a></li>
-        
-        <% if (isAuthenticated) { %>
-          <li><a href="/user/profile" class="<%= path === '/user/profile' ? 'active' : '' %>">Profile</a></li>
-          <li><a href="/user/settings" class="<%= path === '/user/settings' ? 'active' : '' %>">Settings</a></li>
-          <li><a href="/auth/logout">Logout</a></li>
-        <% } else { %>
-          <li><a href="/auth/login" class="<%= path === '/auth/login' ? 'active' : '' %>">Login</a></li>
-          <li><a href="/auth/register" class="<%= path === '/auth/register' ? 'active' : '' %>">Register</a></li>
-        <% } %>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> | ClientSphere</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
 
-  <main>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <a href="/">ClientSphere</a>
+        </div>
+        <ul class="nav-links">
+          <li>
+            <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">
+              <!-- Sun icon shows in dark mode (to switch to light) -->
+              <img src="/icons/sun-dark.svg" alt="Switch to light mode" class="sun-icon">
+              
+              <!-- Moon icon shows in light mode (to switch to dark) -->
+              <img src="/icons/moon-light.svg" alt="Switch to dark mode" class="moon-icon">
+            </button>
+          </li>
+    
+          <li>
+            <a href="/" class="<%= path === '/' ? 'active' : '' %>">Home</a>
+          </li>
+          <li>
+            <a href="/about" class="<%= path === '/about' ? 'active' : '' %>"
+              >About</a
+            >
+          </li>
+
+          <% if (isAuthenticated) { %>
+          <li>
+            <a
+              href="/user/profile"
+              class="<%= path === '/user/profile' ? 'active' : '' %>"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a
+              href="/user/settings"
+              class="<%= path === '/user/settings' ? 'active' : '' %>"
+              >Settings</a
+            >
+          </li>
+          <li><a href="/auth/logout">Logout</a></li>
+          <% } else { %>
+          <li>
+            <a
+              href="/auth/login"
+              class="<%= path === '/auth/login' ? 'active' : '' %>"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="/auth/register"
+              class="<%= path === '/auth/register' ? 'active' : '' %>"
+              >Register</a
+            >
+          </li>
+          <% } %>
+        </ul>
+      </nav>
+    </header>
+
+  </body>
+</html>

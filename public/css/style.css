@@ -24,7 +24,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -82,6 +82,7 @@ header {
 .nav-links {
   display: flex;
   list-style: none;
+  align-items: center;
   gap: 20px;
 }
 
@@ -92,7 +93,8 @@ header {
   transition: color 0.3s;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--primary-color);
 }
 
@@ -111,7 +113,8 @@ footer {
 /* 
  * Form Elements 
  */
-.auth-form, .settings-container {
+.auth-form,
+.settings-container {
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
@@ -176,7 +179,9 @@ input:focus {
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 }
 
 .btn:hover {
@@ -186,7 +191,7 @@ input:focus {
 
 .primary-btn {
   background-color: var(--primary-color);
-  color: var(--white);
+  color: black !important;
 }
 
 .primary-btn:hover {
@@ -195,7 +200,7 @@ input:focus {
 
 .secondary-btn {
   background-color: var(--secondary-color);
-  color: var(--white);
+  color: black !important;
 }
 
 .secondary-btn:hover {
@@ -206,6 +211,7 @@ input:focus {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 /* 
@@ -314,7 +320,7 @@ input:focus {
 }
 
 .features-section h2:after {
-  content: '';
+  content: "";
   display: block;
   width: 50px;
   height: 3px;
@@ -348,7 +354,8 @@ input:focus {
 /* 
  * About Page 
  */
-.about-section, .tech-stack {
+.about-section,
+.tech-stack {
   background-color: var(--white);
   padding: 2rem;
   border-radius: 8px;
@@ -361,7 +368,8 @@ input:focus {
   margin-bottom: 1.5rem;
 }
 
-.about-section ul, .tech-stack ul {
+.about-section ul,
+.tech-stack ul {
   padding-left: 1.5rem;
   margin: 1rem 0;
 }
@@ -440,14 +448,16 @@ input:focus {
   color: var(--text-light);
 }
 
-.profile-section, .settings-section {
+.profile-section,
+.settings-section {
   background-color: var(--white);
   border-radius: 8px;
   box-shadow: var(--shadow);
   padding: 2rem;
 }
 
-.profile-section h3, .settings-section h3 {
+.profile-section h3,
+.settings-section h3 {
   color: var(--primary-color);
   margin-bottom: 1rem;
 }
@@ -521,35 +531,186 @@ details pre {
     flex-direction: column;
     padding: 1rem;
   }
-  
+
   .logo {
     margin-bottom: 1rem;
   }
-  
+
   .nav-links {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .feature-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .profile-header {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .profile-avatar {
     margin-right: 0;
     margin-bottom: 1rem;
   }
-  
+
   .info-item {
     flex-direction: column;
   }
-  
+
   .info-item .label {
     margin-bottom: 0.5rem;
   }
+}
+
+/* Dark Mode Styles - Modern Edition */
+html[data-theme="dark"] {
+  --primary-color: white;
+  --primary-dark:white;
+  --secondary-color:white;
+  --secondary-dark: white;
+  --text-color: #eaeaea;
+  --text-light: #b0b0b0;
+  --background-color: #000000;
+  --border-color: #2a2a2a;
+  --error-color: #ff5e57;
+  --success-color: #00b894;
+  --warning-color: #fdcb6e;
+  --white: #1e1e1e;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] body {
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+html[data-theme="dark"] a {
+  color: var(--text-color);
+}
+
+html[data-theme="dark"] a:hover {
+  color: var(--primary-dark);
+}
+
+html[data-theme="dark"] header {
+  background-color: var(--background-color);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--border-color);
+}
+
+html[data-theme="dark"] footer {
+  background-color: var(--background-color);
+  color: var(--text-light);
+}
+
+html[data-theme="dark"] .auth-form,
+html[data-theme="dark"] .settings-container,
+html[data-theme="dark"] .feature-card,
+html[data-theme="dark"] .profile-card,
+html[data-theme="dark"] .profile-section,
+html[data-theme="dark"] .settings-section,
+html[data-theme="dark"] .error-box {
+  background-color: var(--white);
+  color: var(--text-color);
+  box-shadow: var(--shadow);
+  border-radius: 12px;
+}
+
+html[data-theme="dark"] .form-errors {
+  background-color: rgba(255, 94, 87, 0.15);
+  border-left: 4px solid var(--error-color);
+  border-radius: 8px;
+}
+
+html[data-theme="dark"] .flash-message.success {
+  background-color: rgba(0, 184, 148, 0.15);
+  border-radius: 8px;
+}
+
+html[data-theme="dark"] .flash-message.error {
+  background-color: rgba(255, 94, 87, 0.15);
+  border-radius: 8px;
+}
+
+html[data-theme="dark"] .flash-message.warning {
+  background-color: rgba(253, 203, 110, 0.15);
+  border-radius: 8px;
+}
+
+html[data-theme="dark"] .feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Theme toggle button styling */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.theme-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  transform: scale(1.1);
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-toggle:active {
+  transform: scale(0.9);
+}
+
+/* Theme icons */
+.theme-toggle img {
+  width: 24px;
+  height: 24px;
+  transition:
+    opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Show appropriate icon based on current theme */
+html[data-theme="light"] .sun-icon {
+  display: none;
+}
+
+html[data-theme="light"] .moon-icon {
+  display: block;
+}
+
+html[data-theme="dark"] .sun-icon {
+  display: block;
+}
+
+html[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+/* Add a smooth transition for theme changes */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+html {
+  transition:
+    color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }

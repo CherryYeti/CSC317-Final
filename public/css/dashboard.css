@@ -1,0 +1,108 @@
+/* Dashboard Layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 20px;
+    padding: 20px 0;
+    width: 100%;
+  }
+  
+  /* Top row - 4 equal cards */
+  .dashboard-card {
+    background-color: var(--white); /* Changed from hardcoded #000000 to use theme variable */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Bottom row - left card spans 3 columns, right card spans 1 */
+  .dashboard-card.wide {
+    grid-column: span 3;
+  }
+  
+  .dashboard-card.narrow {
+    grid-column: span 1;
+  }
+  
+  /* Card header styling */
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0;
+  }
+  
+  .card-icon {
+    color: var(--text-light);
+    font-size: 1.5rem;
+  }
+  
+  /* Icon variants based on theme */
+  .dashboard-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Light theme shows light icons (for dark backgrounds) */
+  html[data-theme="light"] .light-icon {
+    display: none;
+  }
+  
+  html[data-theme="light"] .dark-icon {
+    display: inline-block;
+  }
+  
+  /* Dark theme shows dark icons (for light backgrounds) */
+  html[data-theme="dark"] .light-icon {
+    display: inline-block;
+  }
+  
+  html[data-theme="dark"] .dark-icon {
+    display: none;
+  }
+  
+  /* Card content styling */
+  .card-content {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .dashboard {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-card.wide {
+      grid-column: span 2;
+    }
+    
+    .dashboard-card.narrow {
+      grid-column: span 2;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .dashboard {
+      grid-template-columns: 1fr;
+    }
+    
+    .dashboard-card,
+    .dashboard-card.wide,
+    .dashboard-card.narrow {
+      grid-column: span 1;
+    }
+  }

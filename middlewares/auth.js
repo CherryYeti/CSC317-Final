@@ -9,10 +9,10 @@ exports.isAuthenticated = (req, res, next) => {
     // User is authenticated, proceed to the next middleware
     return next();
   }
-  
+
   // User is not authenticated, redirect to login page
   req.session.returnTo = req.originalUrl; // Store the URL they were trying to access
-  res.redirect('/auth/login');
+  res.redirect("/auth/login");
 };
 
 // Middleware to check if user is NOT authenticated
@@ -22,7 +22,7 @@ exports.isNotAuthenticated = (req, res, next) => {
     // User is not authenticated, proceed to the next middleware
     return next();
   }
-  
+
   // User is already authenticated, redirect to profile page
-  res.redirect('/user/profile');
+  res.redirect("/user/profile");
 };

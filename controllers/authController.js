@@ -2,16 +2,16 @@
  * Authentication Controller
  * Handles the logic for user registration, login, and logout
  */
-const { validationResult } = require('express-validator');
-const User = require('../models/User');
+const { validationResult } = require("express-validator");
+const User = require("../models/User");
 
 /**
  * Display registration form
  */
 exports.getRegister = (req, res) => {
-  res.render('auth/register', {
-    title: 'Register',
-    errors: []
+  res.render("auth/register", {
+    title: "Register",
+    errors: [],
   });
 };
 
@@ -23,13 +23,13 @@ exports.postRegister = async (req, res, next) => {
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).render('auth/register', {
-        title: 'Register',
+      return res.status(400).render("auth/register", {
+        title: "Register",
         errors: errors.array(),
         formData: {
           username: req.body.username,
-          email: req.body.email
-        }
+          email: req.body.email,
+        },
       });
     }
 
@@ -37,18 +37,18 @@ exports.postRegister = async (req, res, next) => {
     const user = new User({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
     });
 
     // Save user to database
     await user.save();
 
     // Redirect to login page with success message
-    req.session.flashMessage = { 
-      type: 'success', 
-      text: 'Registration successful! You can now log in.' 
+    req.session.flashMessage = {
+      type: "success",
+      text: "Registration successful! You can now log in.",
     };
-    res.redirect('/auth/login');
+    res.redirect("/auth/login");
   } catch (error) {
     next(error);
   }
@@ -62,11 +62,11 @@ exports.getLogin = (req, res) => {
   const flashMessage = req.session.flashMessage;
   // Clear flash message from session
   delete req.session.flashMessage;
-  
-  res.render('auth/login', {
-    title: 'Login',
+
+  res.render("auth/login", {
+    title: "Login",
     errors: [],
-    flashMessage
+    flashMessage,
   });
 };
 
@@ -78,52 +78,52 @@ exports.postLogin = async (req, res, next) => {
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).render('auth/login', {
-        title: 'Login',
+      return res.status(400).render("auth/login", {
+        title: "Login",
         errors: errors.array(),
         formData: {
-          email: req.body.email
-        }
+          email: req.body.email,
+        },
       });
     }
 
     // Find user by email
     const user = await User.findOne({ email: req.body.email });
-    
+
     // Check if user exists
     if (!user) {
-      return res.status(401).render('auth/login', {
-        title: 'Login',
-        errors: [{ msg: 'Invalid email or password' }],
+      return res.status(401).render("auth/login", {
+        title: "Login",
+        errors: [{ msg: "Invalid email or password" }],
         formData: {
-          email: req.body.email
-        }
+          email: req.body.email,
+        },
       });
     }
-    
+
     // Check password
     const isPasswordValid = await user.comparePassword(req.body.password);
     if (!isPasswordValid) {
-      return res.status(401).render('auth/login', {
-        title: 'Login',
-        errors: [{ msg: 'Invalid email or password' }],
+      return res.status(401).render("auth/login", {
+        title: "Login",
+        errors: [{ msg: "Invalid email or password" }],
         formData: {
-          email: req.body.email
-        }
+          email: req.body.email,
+        },
       });
     }
-    
+
     // Set user session (don't include password in the session)
     req.session.user = {
       id: user._id,
       username: user.username,
-      email: user.email
+      email: user.email,
     };
-    
+
     // Redirect to originally requested URL or profile page
-    const redirectUrl = req.session.returnTo || '/user/profile';
+    const redirectUrl = req.session.returnTo || "/user/profile";
     delete req.session.returnTo;
-    
+
     res.redirect(redirectUrl);
   } catch (error) {
     next(error);
@@ -135,11 +135,11 @@ exports.postLogin = async (req, res, next) => {
  */
 exports.logout = (req, res) => {
   // Destroy the session
-  req.session.destroy(err => {
+  req.session.destroy((err) => {
     if (err) {
-      console.error('Error destroying session:', err);
+      console.error("Error destroying session:", err);
     }
     // Redirect to home page
-    res.redirect('/');
+    res.redirect("/");
   });
 };
