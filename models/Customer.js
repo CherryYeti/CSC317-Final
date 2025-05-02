@@ -15,6 +15,7 @@ const CustomerSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, "Email is required"],
+      unique: true, // Ensure email is unique
       trim: true,
       lowercase: true,
       match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
@@ -38,11 +39,13 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
       enum: ['lead', 'prospect', 'customer', 'former', 'inactive'],
       default: 'lead'
-    },
+        },
+    /* Dealt with by using timestamps: true,
     createdAt: {
       type: Date,
       default: Date.now,
     },
+    */
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -52,6 +55,8 @@ const CustomerSchema = new mongoose.Schema(
     // Add virtual properties when converting to JSON
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
+    // Add timestamps for automatic createdAt and updatedAt
+    timestamps: true,
   }
 );
 
