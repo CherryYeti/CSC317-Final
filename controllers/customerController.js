@@ -12,20 +12,26 @@ const Customer = require('../models/Customer'); // Adjust path if needed
  * @route   GET /customers/
  * @access  Private (requires auth)
  */
-exports.getAllCustomers = async (req, res, next) => {
-    try {
-        const customers = await Customer.find().sort({ createdAt: -1 }); // Example: sort by newest first
-        res.render('customer/list', { // Assuming view at views/customer/list.ejs (or .hbs, .pug)
-            title: 'Customers',
-            customers: customers,
-            user: req.session.user, // Pass user session data to the view
-            success_msg: req.flash ? req.flash('success_msg') : null, // Pass flash messages if used
-            error_msg: req.flash ? req.flash('error_msg') : null
-        });
-    } catch (error) {
-        console.error("Error fetching customers:", error);
-        next(error); // Pass error to your central error handler
-    }
+// exports.getAllCustomers = async (req, res, next) => { //Original
+//     try {
+//         const customers = await Customer.find().sort({ createdAt: -1 }); // Example: sort by newest first
+//         res.render('customer/list', { // Assuming view at views/customer/list.ejs (or .hbs, .pug)
+//             title: 'Customers',
+//             customers: customers,
+//             user: req.session.user, // Pass user session data to the view
+//             success_msg: req.flash ? req.flash('success_msg') : null, // Pass flash messages if used
+//             error_msg: req.flash ? req.flash('error_msg') : null
+//         });
+//     } catch (error) {
+//         console.error("Error fetching customers:", error);
+//         next(error); // Pass error to your central error handler
+//     }
+// };
+exports.getAllCustomers = (req, res) => { //Modified, go to create page
+    res.render("customer/create", {
+        title: "Create",
+        user: req.session.user,
+      });
 };
 
 /**

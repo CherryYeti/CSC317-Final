@@ -19,8 +19,10 @@ router.use(isAuthenticated);
 // --- Customer Routes (Server-Rendered CRUD Pattern) ---
 
 // 1. Display list of all customers
-// GET /customers/
-router.get("/", customerController.getAllCustomers);
+// GET /customers/ 
+//router.get("/", customerController.getAllCustomers); ORGINAL
+
+router.get("/create", customerController.getAllCustomers); //Modified
 
 // 2. Show the form to create a new customer
 // GET /customers/new

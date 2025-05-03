@@ -135,6 +135,7 @@ exports.postLogin = async (req, res, next) => {
  */
 exports.logout = (req, res) => {
   // Destroy the session
+  
   req.session.destroy((err) => {
     if (err) {
       console.error("Error destroying session:", err);

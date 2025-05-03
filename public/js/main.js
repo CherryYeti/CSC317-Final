@@ -1,7 +1,8 @@
 /**
  * Main JavaScript file for client-side functionality
  */
-
+// exports.isAuthenticated = (req, res, next) => {
+  
 document.addEventListener("DOMContentLoaded", function () {
   // Load the saved theme from localStorage or default to light
   const savedTheme = localStorage.getItem("theme") || "light";

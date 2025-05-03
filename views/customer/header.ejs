@@ -24,14 +24,9 @@
               <img src="/icons/moon-light.svg" alt="Switch to dark mode" class="moon-icon">
             </button>
           </li>
-          <% if (isAuthenticated) {%>
             <li>
-              <a 
-              href="/customer/create"
-              class="<%= path === '../customer/create' ? 'active' : '' %>"
-              >Create View</a>
+              <a href="/">Exit Create View</a>
               </li>
-          <%}%>
 
           <li>
             <a href="/" class="<%= path === '/' ? 'active' : '' %>">Home</a>
@@ -42,39 +37,24 @@
             >
           </li>
 
-          <% if (isAuthenticated) { %>
             
           <li>
             <a
               href="/user/profile"
               class="<%= path === '/user/profile' ? 'active' : '' %>"
-              >Profile</a
+              >Create Customer</a
             >
           </li>
           <li>
             <a
               href="/user/settings"
               class="<%= path === '/user/settings' ? 'active' : '' %>"
-              >Settings</a
+              >Edit Customer</a
             >
           </li>
-          <li><a href="/auth/logout">Logout</a></li>
-          <% } else { %>
-          <li>
-            <a
-              href="/auth/login"
-              class="<%= path === '/auth/login' ? 'active' : '' %>"
-              >Login</a
-            >
-          </li>
-          <li>
-            <a
-              href="/auth/register"
-              class="<%= path === '/auth/register' ? 'active' : '' %>"
-              >Register</a
-            >
-          </li>
-          <% } %>
+          <li><a href="/auth/logout">Customers Details</a></li>
+          <li><a href="/auth/logout">View Customers</a></li>
+
         </ul>
       </nav>
     </header>
