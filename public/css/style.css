@@ -311,6 +311,7 @@ input:focus {
 
 .features-section {
   margin-top: 3rem;
+  text-align: center; /* Center all text content in features section */
 }
 
 .features-section h2 {
@@ -332,6 +333,9 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
+  justify-content: center; /* Center grid items horizontally */
+  max-width: 900px; /* Limit the width for better presentation */
+  margin: 0 auto; /* Center the grid in the container */
 }
 
 .feature-card {
@@ -340,6 +344,12 @@ input:focus {
   border-radius: 8px;
   box-shadow: var(--shadow);
   transition: transform 0.3s;
+  text-align: center; /* Center text content in feature cards */
+}
+
+.feature-card ul {
+  display: inline-block; /* Make lists align better with centered text */
+  text-align: left; /* Keep list items left-aligned for readability */
 }
 
 .feature-card:hover {
