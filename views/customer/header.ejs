@@ -24,36 +24,29 @@
               <img src="/icons/moon-light.svg" alt="Switch to dark mode" class="moon-icon">
             </button>
           </li>
-            <li>
-              <a href="/">Exit Create View</a>
-              </li>
-
           <li>
-            <a href="/" class="<%= path === '/' ? 'active' : '' %>">Home</a>
-          </li>
+            <a href="/">Exit Create View</a>
+            </li>
           <li>
-            <a href="/about" class="<%= path === '/about' ? 'active' : '' %>"
-              >About</a
-            >
+            <a href="./home" class="<%= path === '/' ? 'active' : '' %>">Home</a>
           </li>
-
-            
           <li>
             <a
-              href="/user/profile"
+              href="./create"
               class="<%= path === '/user/profile' ? 'active' : '' %>"
               >Create Customer</a
             >
           </li>
           <li>
             <a
-              href="/user/settings"
+              href="./edit"
               class="<%= path === '/user/settings' ? 'active' : '' %>"
               >Edit Customer</a
             >
           </li>
-          <li><a href="/auth/logout">Customers Details</a></li>
-          <li><a href="/auth/logout">View Customers</a></li>
+          <li><a href="./detail">Customers Details</a></li>
+          <li><a href="./list">View Customers</a></li>
+          <li><a href="/auth/logout">Logout</a></li>
 
         </ul>
       </nav>

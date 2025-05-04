@@ -22,8 +22,11 @@ router.use(isAuthenticated);
 // GET /customers/ 
 //router.get("/", customerController.getAllCustomers); ORGINAL
 
-router.get("/create", customerController.getAllCustomers); //Modified
-
+router.get("/create", customerController.getCustomerCreate); //Modified
+router.get("/detail", customerController.getCustomerDetail); //Modified
+router.get("/edit", customerController.getCustomerEdit); //Modified
+router.get("/home", customerController.getCustomerHome); //Modified
+router.get("/list", customerController.getCustomerList); //Modified
 // 2. Show the form to create a new customer
 // GET /customers/new
 router.get("/new", customerController.getCreateCustomerForm);

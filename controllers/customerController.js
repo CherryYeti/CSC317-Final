@@ -27,8 +27,32 @@ const Customer = require('../models/Customer'); // Adjust path if needed
 //         next(error); // Pass error to your central error handler
 //     }
 // };
-exports.getAllCustomers = (req, res) => { //Modified, go to create page
+exports.getCustomerCreate = (req, res) => { //Modified, go to create page
     res.render("customer/create", {
+        title: "Create",
+        user: req.session.user,
+      });
+};
+exports.getCustomerDetail = (req, res) => { //Modified, go to create page
+    res.render("customer/detail", {
+        title: "Create",
+        user: req.session.user,
+      });
+};
+exports.getCustomerEdit = (req, res) => { //Modified, go to create page
+    res.render("customer/edit", {
+        title: "Create",
+        user: req.session.user,
+      });
+};
+exports.getCustomerHome = (req, res) => { //Modified, go to create page
+    res.render("customer/home", {
+        title: "Create",
+        user: req.session.user,
+      });
+};
+exports.getCustomerList = (req, res) => { //Modified, go to create page
+    res.render("customer/list", {
         title: "Create",
         user: req.session.user,
       });
