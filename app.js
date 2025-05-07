@@ -27,34 +27,26 @@ const { handleErrors } = require("./middlewares/error-handler");
 // Initialize Express app
 const app = express();
 
-// Connect to MongoDB (with error handling that doesn't crash the app)
+// Connect to MongoDB with better error handling and configuration
 if (process.env.MONGODB_URI) {
-  // Completely disable indexing in Mongoose
-  mongoose.set("autoIndex", false);
-  mongoose.set("autoCreate", false);
-
-  // Set Mongoose options to handle MongoDB version differences
-  const mongooseOptions = {
-    // For older MongoDB servers and compatibility
-    maxPoolSize: 10,
-    serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-    family: 4, // Use IPv4, skip trying IPv6
-  };
-
   mongoose
-    .connect(process.env.MONGODB_URI, mongooseOptions)
+    .connect(process.env.MONGODB_URI, {
+      autoIndex: process.env.NODE_ENV !== "production", // Only create indexes in development
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      family: 4, // Use IPv4
+    })
     .then(() => console.log("MongoDB connected successfully"))
     .catch((err) => {
       console.error("MongoDB connection error:", err);
-      console.log("Continuing without MongoDB. Some features may not work.");
+      console.log(
+        "Please check your MongoDB connection string and ensure the database is running."
+      );
     });
 } else {
-  console.log(
-    "No MONGODB_URI found in environment. Continuing without database connection."
-  );
-  console.log(
-    "Please set up your MongoDB connection in the .env file to enable authentication features."
+  console.warn(
+    "MONGODB_URI not found in environment variables. Database features will not work."
   );
 }
 
