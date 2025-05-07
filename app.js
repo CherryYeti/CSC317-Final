@@ -105,36 +105,39 @@ if (process.env.MONGODB_URI) {
 
 app.use(session(sessionConfig));
 
-// CSRF protection temporarily disabled
-/*
-try {
-  app.use(csrf({ cookie: false }));  // Using session instead of cookie
+// Enable CSRF protection
+const csrfProtection = csrf({ cookie: false }); // Use session instead of cookies
 
-  // Set local variables for templates including CSRF token
-  app.use((req, res, next) => {
-    try {
-      res.locals.csrfToken = req.csrfToken();
-    } catch (err) {
-      console.error('Error generating CSRF token:', err);
-      // Provide a dummy token to prevent template errors
-      res.locals.csrfToken = 'dummy-csrf-token-error-occurred';
-    }
-    next();
-  });
-} catch (err) {
-  console.error('Error setting up CSRF protection:', err);
-  // Fallback middleware to prevent application crash
-  app.use((req, res, next) => {
-    res.locals.csrfToken = 'csrf-disabled-error-occurred';
-    next();
-  });
-}
-*/
-
-// Provide a dummy CSRF token for templates
+// Apply CSRF protection and provide token to templates
 app.use((req, res, next) => {
-  res.locals.csrfToken = "csrf-protection-disabled";
-  next();
+  // Skip CSRF for specific routes if needed (like API endpoints)
+  if (req.path.startsWith("/api/")) {
+    return next();
+  }
+
+  csrfProtection(req, res, (err) => {
+    if (err) {
+      console.error("CSRF error:", err);
+      if (err.code === "EBADCSRFTOKEN") {
+        // Handle invalid CSRF token
+        return res.status(403).render("error", {
+          title: "Security Error",
+          message: "Form submission rejected. Please try again.",
+          error: { status: 403 },
+          path: req.path,
+          isAuthenticated: req.session && req.session.user ? true : false,
+        });
+      }
+
+      // For other CSRF errors, provide a dummy token and continue
+      res.locals.csrfToken = "csrf-error-occurred";
+      return next();
+    }
+
+    // Set CSRF token in locals for templates to use
+    res.locals.csrfToken = req.csrfToken();
+    next();
+  });
 });
 
 // Our custom locals middleware
