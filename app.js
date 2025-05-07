@@ -27,6 +27,9 @@ const { handleErrors } = require("./middlewares/error-handler");
 // Initialize Express app
 const app = express();
 
+// Trust proxy - add this line when deploying behind a reverse proxy (like Render)
+app.set("trust proxy", 1);
+
 // Connect to MongoDB with better error handling and configuration
 if (process.env.MONGODB_URI) {
   mongoose
@@ -83,7 +86,7 @@ let sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // Change sameSite to 'none' in production
   },
 };
 
