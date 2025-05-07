@@ -61,6 +61,7 @@ main {
 header {
   background-color: var(--white);
   box-shadow: var(--shadow);
+  border-bottom: 2px solid transparent; /* Add transparent border to match dark mode's structure */
 }
 
 .navbar {
