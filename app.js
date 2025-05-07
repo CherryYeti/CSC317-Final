@@ -51,10 +51,10 @@ if (process.env.MONGODB_URI) {
     });
 } else {
   console.log(
-    "No MONGODB_URI found in environment. Continuing without database connection.",
+    "No MONGODB_URI found in environment. Continuing without database connection."
   );
   console.log(
-    "Please set up your MongoDB connection in the .env file to enable authentication features.",
+    "Please set up your MongoDB connection in the .env file to enable authentication features."
   );
 }
 
@@ -95,33 +95,21 @@ let sessionConfig = {
   },
 };
 
-// For now, let's avoid using MongoDB as a session store to prevent index creation issues
-console.log(
-  "Using memory session store (not persistent, but will work for development)",
-);
-
-// If you want to try using MongoDB store, uncomment this:
-/*
-try {
-  if (process.env.MONGODB_URI) {
-    sessionConfig.store = MongoStore.create({ 
-      mongoUrl: process.env.MONGODB_URI,
-      ttl: 14 * 24 * 60 * 60, // = 14 days session expiry
-      autoRemove: 'native',
-      touchAfter: 24 * 3600, // time period in seconds between session updates
-      crypto: {
-        secret: false // disable encryption
-      }
-    });
-    console.log('MongoDB session store configured');
-  } else {
-    console.log('Using memory session store (not recommended for production)');
-  }
-} catch (error) {
-  console.error('Error configuring MongoDB session store:', error);
-  console.log('Falling back to memory session store (not recommended for production)');
+// Configure session with MongoDB store
+if (process.env.MONGODB_URI) {
+  sessionConfig.store = MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    ttl: 14 * 24 * 60 * 60, // 14 days session expiry
+    autoRemove: "native",
+    touchAfter: 24 * 3600, // update session only once per day
+    crypto: {
+      secret: process.env.SESSION_SECRET || "fallback_secret",
+    },
+  });
+  console.log("MongoDB session store configured");
+} else {
+  console.warn("Using memory session store (not recommended for production)");
 }
-*/
 
 app.use(session(sessionConfig));
 
