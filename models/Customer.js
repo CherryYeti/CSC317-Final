@@ -37,7 +37,7 @@ const CustomerSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['lead', 'prospect', 'customer', 'former', 'inactive'],
+      enum: ['lead', 'prospect', 'customer', 'former', 'inactive', 'ceo'],
       default: 'lead'
         },
     /* Dealt with by using timestamps: true,

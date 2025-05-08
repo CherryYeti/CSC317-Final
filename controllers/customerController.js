@@ -28,12 +28,12 @@ exports.getCustomerList = async (req, res, next) => { //Original function name i
     }
 };
 
-exports.getCustomerCreate = (req, res) => { //Modified, go to create page
-    res.render("customer/create", {
-        title: "Create",
-        user: req.session.user,
-      });
-};
+// exports.getCustomerCreate = (req, res) => { //Modified, go to create page
+//     res.render("customer/create", {
+//         title: "Create",
+//         user: req.session.user,
+//       });
+// };
 
 exports.getCustomerDetail = (req, res) => { //Modified, go to create page
     res.render("customer/detail", {
@@ -140,7 +140,7 @@ exports.createCustomer = async (req, res, next) => {
 
     // Basic Server-Side Validation Example
     if (!name || !email) {
-        errors.push({ msg: 'Please provide name and email' });
+        errors.push({ msg: 'Please provide name and email' + name + email});
     }
     // Add more validation rules here (e.g., email format, phone format)
 
@@ -173,11 +173,10 @@ exports.createCustomer = async (req, res, next) => {
             // createdBy: req.session.user.id // Optionally link to the user who created it
         });
 
-        await newCustomer.save();
-
+        await newCustomer.save('success_msg', 'Customer created successfully!');
         // Redirect on success (e.g., to the customer list) with a flash message
-        if(req.flash) req.flash('success_msg', 'Customer created successfully!');
-        res.redirect('/customers'); // Or redirect to `/customers/${newCustomer._id}`
+        if(req.flash) {req.flash('success_msg', 'Customer created successfully!');} //  removed from right-most
+        res.redirect('/customer/list'); // Or redirect to `/customers/${newCustomer._id}`
 
     } catch (error) {
         console.error("Error saving new customer:", error);

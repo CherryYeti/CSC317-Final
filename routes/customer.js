@@ -21,19 +21,17 @@ router.use(isAuthenticated);
 // 1. Display list of all customers
 // GET /customers/ 
 //router.get("/", customerController.getAllCustomers); ORGINAL
-
-router.get("/create", customerController.getCreateCustomerForm); //Modified
 router.get("/detail", customerController.getCustomerDetail); //Modified
 router.get("/edit", customerController.getCustomerEdit); //Modified
 router.get("/home", customerController.getCustomerHome); //Modified
 router.get("/list", customerController.getCustomerList); //Modified
 // 2. Show the form to create a new customer
 // GET /customers/new
-router.get("/new", customerController.getCreateCustomerForm);
+router.get("/create", customerController.getCreateCustomerForm);
 
 // 3. Process the submission of the create form
 // POST /customers/
-router.post("/", customerController.createCustomer);
+router.post("/create", customerController.createCustomer);
 
 // 4. Display details for a specific customer
 // GET /customers/:id
