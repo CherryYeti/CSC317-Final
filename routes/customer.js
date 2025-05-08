@@ -22,7 +22,7 @@ router.use(isAuthenticated);
 // GET /customers/ 
 //router.get("/", customerController.getAllCustomers); ORGINAL
 
-router.get("/create", customerController.getCustomerCreate); //Modified
+router.get("/create", customerController.getCreateCustomerForm); //Modified
 router.get("/detail", customerController.getCustomerDetail); //Modified
 router.get("/edit", customerController.getCustomerEdit); //Modified
 router.get("/home", customerController.getCustomerHome); //Modified
