@@ -190,22 +190,44 @@ input:focus {
   transform: translateY(-2px);
 }
 
+/* Light mode button styles */
 .primary-btn {
-  background-color: var(--primary-color);
-  color: black !important;
+  background-color: #000000;
+  color: #ffffff !important;
 }
 
 .primary-btn:hover {
-  background-color: var(--primary-dark);
+  background-color: #333333;
 }
 
 .secondary-btn {
-  background-color: var(--secondary-color);
-  color: black !important;
+  background-color: #ffffff;
+  color: #000000 !important;
+  border: 1px solid #000000;
 }
 
 .secondary-btn:hover {
-  background-color: var(--secondary-dark);
+  background-color: #f5f5f5;
+}
+
+/* Dark mode button styles */
+html[data-theme="dark"] .primary-btn {
+  background-color: #ffffff;
+  color: #000000 !important;
+}
+
+html[data-theme="dark"] .primary-btn:hover {
+  background-color: #e0e0e0;
+}
+
+html[data-theme="dark"] .secondary-btn {
+  background-color: #000000;
+  color: #ffffff !important;
+  border: 1px solid #ffffff;
+}
+
+html[data-theme="dark"] .secondary-btn:hover {
+  background-color: #333333;
 }
 
 .action-buttons {
