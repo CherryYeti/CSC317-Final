@@ -1,5 +1,13 @@
 <%- include('./header') %>
-<p>Create Home Page</p>
+<h1><%= title %></h1>
 <%- include('../partials/flash-message') %>
-<p>HELLO</p>
+<div class = "container mt-4">
+    <!-- 10 customers/ page limit, starts from very first item -->
+    <p>Customers Display Here</p>
+        <ul style="list-style: none">
+            <% customers.forEach(customer => { %>
+                <li><%= customer.name %></li>
+            <% }); %>
+        </ul>
+    </div>
 <%- include('../partials/footer') %>

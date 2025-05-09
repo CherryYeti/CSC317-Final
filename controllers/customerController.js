@@ -67,8 +67,8 @@ exports.getCustomerList = async (req, res, next) => {
         const totalCustomers = await Customer.countDocuments(queryConditions);
         const totalPages = Math.ceil(totalCustomers / limit);
 
-        res.render('customer/list', {
-            title: 'Customers',
+        res.render('customer/home', {
+            title: 'Customer List',
             customers: customers,
             user: req.session.user,
             success_msg: req.flash ? req.flash('success_msg') : null,
@@ -90,30 +90,6 @@ exports.getCustomerList = async (req, res, next) => {
     }
 };
 
-// These functions below were problematic as they didn't fetch data.
-// They should be removed if not being used, or their logic corrected.
-// routes should point to getCustomerById and getEditCustomerForm instead.
-//exports.getCustomerDetail = (req, res) => {
-//    res.render("customer/detail", {
-//        title: "Create", // Incorrect title for details
-//        user: req.session.user,
-//      });
-//};
-
-//exports.getCustomerEdit = (req, res) => {
-//    res.render("customer/edit", {
-//        title: "Create", // Incorrect title for edit
-//        user: req.session.user,
-//      });
-//};
-
-// Optional: If we have a specific route and view for a customer "home" or dashboard
-exports.getCustomerHome = (req, res) => {
-    res.render("customer/home", {
-        title: "Customer Dashboard", // Corrected title
-        user: req.session.user,
-    });
-};
 
 /**
  * @desc    Display form to create a new customer
@@ -233,7 +209,7 @@ exports.createCustomer = async (req, res, next) => {
         if (req.flash) { // Using connect-flash for success message
             req.flash('success_msg', 'Customer created successfully!');
         }
-        res.redirect('/customer/list'); // Redirect to the main customer list
+        res.redirect('/customer/home'); // Redirect to the main customer list
 
     } catch (error) {
         console.error("Error saving new customer:", error);

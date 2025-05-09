@@ -20,7 +20,7 @@ router.use(isAuthenticated);
 
 // 1. Display list of all customers (MAIN CUSTOMER PAGE)
 // GET /customers/
-router.get("/list", customerController.getCustomerList);
+router.get("/home", customerController.getCustomerList); // Ensure getCustomerHome is defined and renders a meaningful page
 
 // 2. Show the form to create a new customer
 // GET /customers/new
@@ -29,7 +29,6 @@ router.get("/create", customerController.getCreateCustomerForm);
 // 3. Optional: Customer "home" or "dashboard" page
 // This specific route needs to come BEFORE any general /:id routes
 // GET /customers/home
-router.get("/home", customerController.getCustomerHome); // Ensure getCustomerHome is defined and renders a meaningful page
 
 // 4. Process the submission of the create form
 // POST /customers/

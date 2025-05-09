@@ -1,5 +1,5 @@
-<%- /* header partial is in views/partials/header.ejs */ -%>
-<%- include('../partials/header') %>
+<%- /* using a modified header.ejs found in views/customer */ -%>
+<%- include('header') %>
 <%- /* form-errors partial is in views/partials/form-errors.ejs */ -%>
 <%- include('../partials/form-errors') %>
 
@@ -109,7 +109,7 @@
 
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Create Customer</button>
-        <a href="/customers" class="btn btn-secondary ms-2">Cancel</a>
+        <a href="/customer/create" class="btn btn-secondary ms-2">Cancel</a>
       </div>
     </form>
   </div>
