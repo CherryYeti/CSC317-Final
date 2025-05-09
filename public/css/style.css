@@ -136,7 +136,12 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="name"],
+input[type="phone"],
+input[type="company"],
+input[type="address"],
+input[type="status"] {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--border-color);

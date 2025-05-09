@@ -1,9 +1,10 @@
 <%- include('./header') %>
-<p>Creating Customers Page</p>
-<!-- name, email, phone, company, address, status -->
 <%- include('../partials/form-errors') %>
-    
-<form action="/customer/create" method="POST">
+
+<div class="container">
+  <div class="auth-form">
+      <h1>Enter Customer Information</h1>
+  <form action="/customer/create" method="POST">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   
   <div class="form-group">
@@ -12,9 +13,10 @@
       type="name" 
       id="name" 
       name="name" 
-      value="<%= typeof formData !== 'undefined' ? formData.username || '' : '' %>"
+      value="<%= typeof customerData !== 'undefined' ? customerData.name || '' : '' %>"
       placeholder="Choose a username (3-20 characters)"
       required
+      maxlength="20"
     >
   </div>
   
@@ -24,7 +26,7 @@
       type="email" 
       id="email" 
       name="email"
-      value="<%= typeof formData !== 'undefined' ? formData.email || '' : '' %>"
+      value="<%= typeof customerData !== 'undefined' ? customerData.email || '' : '' %>"
       placeholder="Enter your email address"
       required
     >
@@ -36,8 +38,10 @@
       type="phone" 
       id="phone" 
       name="phone"
+      value = "<%= typeof customerData !== 'undefined' ? customerData.phone || '' : '' %>"
       placeholder="Enter your phone number"
       required
+      maxlength="20"
     >
   </div>
   
@@ -47,8 +51,10 @@
       type="company" 
       id="company" 
       name="company"
+      value = "<%= typeof customerData !== 'undefined' ? customerData.company || '' : '' %>"
       placeholder="Enter company name"
       required
+      maxlength="25"
     >
   </div>
   
@@ -58,8 +64,10 @@
       type="address" 
       id="address" 
       name="address"
+      value = "<%= typeof customerData !== 'undefined' ? customerData.address || '' : '' %>"
       placeholder="Enter location of company"
       required
+      maxlength="25"
     >
   </div>
 
@@ -69,6 +77,7 @@
       type="status" 
       id="status" 
       name="status"
+      value = "<%= typeof customerData !== 'undefined' ? customerData.status || '' : '' %>"
       placeholder="Enter your status within the company"
       required
     >
@@ -78,4 +87,6 @@
     <button type="submit" class="btn primary-btn">Register</button>
   </div>
 </form>
+  </div>
+</div>
 <%- include('../partials/footer') %>

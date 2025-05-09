@@ -28,13 +28,6 @@ exports.getCustomerList = async (req, res, next) => { //Original function name i
     }
 };
 
-// exports.getCustomerCreate = (req, res) => { //Modified, go to create page
-//     res.render("customer/create", {
-//         title: "Create",
-//         user: req.session.user,
-//       });
-// };
-
 exports.getCustomerDetail = (req, res) => { //Modified, go to create page
     res.render("customer/detail", {
         title: "Create",
@@ -80,7 +73,7 @@ exports.getCustomerById = async (req, res, next) => {
         const customer = await Customer.findById(req.params.id);
         if (!customer) {
              if(req.flash) req.flash('error_msg', 'Customer not found');
-             return res.redirect('/customers');
+             return res.redirect('/customer/home');
         }
         res.render('customer/detail', { // Assuming views/customer/detail.ejs
             title: `Customer: ${customer.name}`,
@@ -91,7 +84,7 @@ exports.getCustomerById = async (req, res, next) => {
         console.error(`Error fetching customer ${req.params.id}:`, error);
          if (error.kind === 'ObjectId') {
              if(req.flash) req.flash('error_msg', 'Invalid Customer ID format');
-             return res.redirect('/customers');
+             return res.redirect('/customer/home');
          }
         next(error);
     }
@@ -107,7 +100,7 @@ exports.getEditCustomerForm = async (req, res, next) => {
         const customer = await Customer.findById(req.params.id);
         if (!customer) {
              if(req.flash) req.flash('error_msg', 'Customer not found');
-             return res.redirect('/customers');
+             return res.redirect('/customer/home');
         }
         res.render('customer/edit', { // Assuming views/customer/edit.ejs
             title: 'Edit Customer',
@@ -119,7 +112,7 @@ exports.getEditCustomerForm = async (req, res, next) => {
         console.error(`Error fetching customer ${req.params.id} for edit:`, error);
          if (error.kind === 'ObjectId') {
              if(req.flash) req.flash('error_msg', 'Invalid Customer ID format');
-             return res.redirect('/customers');
+             return res.redirect('/customer/home');
          }
         next(error);
     }
@@ -175,7 +168,12 @@ exports.createCustomer = async (req, res, next) => {
 
         await newCustomer.save('success_msg', 'Customer created successfully!');
         // Redirect on success (e.g., to the customer list) with a flash message
-        if(req.flash) {req.flash('success_msg', 'Customer created successfully!');} //  removed from right-most
+        req.session.flashMessage = { //added
+        type: "success",
+        text: "Registration successful! You can now log in.",
+        };
+
+        if(req.flash) {req.flash('success_msg', 'Customer created successfully!');}
         res.redirect('/customer/list'); // Or redirect to `/customers/${newCustomer._id}`
 
     } catch (error) {
@@ -243,12 +241,12 @@ exports.updateCustomer = async (req, res, next) => {
 
         if (!updatedCustomer) {
              if(req.flash) req.flash('error_msg', 'Customer not found for update');
-             return res.redirect('/customers');
+             return res.redirect('/customer/list');
         }
 
         // Redirect on success (e.g., back to the customer detail page) with a flash message
         if(req.flash) req.flash('success_msg', 'Customer updated successfully!');
-        res.redirect(`/customers/${customerId}`);
+        res.redirect(`/customer/detail/${customerId}`);
 
     } catch (error) {
         console.error(`Error updating customer ${customerId}:`, error);
@@ -280,18 +278,18 @@ exports.deleteCustomer = async (req, res, next) => {
 
         if (!deletedCustomer) {
              if(req.flash) req.flash('error_msg', 'Customer not found for deletion');
-             return res.redirect('/customers');
+             return res.redirect('/customer/list');
         }
 
         // Redirect on success (e.g., back to the customer list) with a flash message
         if(req.flash) req.flash('success_msg', 'Customer deleted successfully!');
-        res.redirect('/customers');
+        res.redirect('/customer/list');
 
     } catch (error) {
         console.error(`Error deleting customer ${req.params.id}:`, error);
          if (error.kind === 'ObjectId') {
              if(req.flash) req.flash('error_msg', 'Invalid Customer ID format');
-             return res.redirect('/customers');
+             return res.redirect('/customer/list');
          }
         next(error); // Pass other errors to the central handler
     }

@@ -20,7 +20,6 @@ router.use(isAuthenticated);
 
 // 1. Display list of all customers
 // GET /customers/ 
-//router.get("/", customerController.getAllCustomers); ORGINAL
 router.get("/detail", customerController.getCustomerDetail); //Modified
 router.get("/edit", customerController.getCustomerEdit); //Modified
 router.get("/home", customerController.getCustomerHome); //Modified
