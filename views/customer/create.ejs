@@ -1,92 +1,118 @@
-<%- include('./header') %>
+<%- /* header partial is in views/partials/header.ejs */ -%>
+<%- include('../partials/header') %>
+<%- /* form-errors partial is in views/partials/form-errors.ejs */ -%>
 <%- include('../partials/form-errors') %>
 
-<div class="container">
-  <div class="auth-form">
-      <h1>Enter Customer Information</h1>
-  <form action="/customer/create" method="POST">
-  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-  
-  <div class="form-group">
-    <label for="name">Customer Name</label>
-    <input 
-      type="name" 
-      id="name" 
-      name="name" 
-      value="<%= typeof customerData !== 'undefined' ? customerData.name || '' : '' %>"
-      placeholder="Choose a username (3-20 characters)"
-      required
-      maxlength="20"
-    >
-  </div>
-  
-  <div class="form-group">
-    <label for="email">Customer Email Address</label>
-    <input 
-      type="email" 
-      id="email" 
-      name="email"
-      value="<%= typeof customerData !== 'undefined' ? customerData.email || '' : '' %>"
-      placeholder="Enter your email address"
-      required
-    >
-  </div>
-  
-  <div class="form-group">
-    <label for="phone">Customer Phone Number</label>
-    <input 
-      type="phone" 
-      id="phone" 
-      name="phone"
-      value = "<%= typeof customerData !== 'undefined' ? customerData.phone || '' : '' %>"
-      placeholder="Enter your phone number"
-      required
-      maxlength="20"
-    >
-  </div>
-  
-  <div class="form-group">
-    <label for="company">Customer Company</label>
-    <input 
-      type="company" 
-      id="company" 
-      name="company"
-      value = "<%= typeof customerData !== 'undefined' ? customerData.company || '' : '' %>"
-      placeholder="Enter company name"
-      required
-      maxlength="25"
-    >
-  </div>
-  
-  <div class="form-group">
-    <label for="address">Company Address</label>
-    <input 
-      type="address" 
-      id="address" 
-      name="address"
-      value = "<%= typeof customerData !== 'undefined' ? customerData.address || '' : '' %>"
-      placeholder="Enter location of company"
-      required
-      maxlength="25"
-    >
-  </div>
+<div class="container mt-4">
+  <div class="auth-form"> <%# Assuming this class provides styling for your forms %>
+    <h1><%= title %></h1> <%# 'title' is passed from your controller %>
 
-  <div class="form-group">
-    <label for="status">Customer Status</label>
-    <input 
-      type="status" 
-      id="status" 
-      name="status"
-      value = "<%= typeof customerData !== 'undefined' ? customerData.status || '' : '' %>"
-      placeholder="Enter your status within the company"
-      required
-    >
-  </div>
+    <%# Display Validation Errors if they exist and are passed to this view %>
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+      <div class="alert alert-danger" role="alert">
+        <ul class="mb-0">
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
 
-  <div class="form-actions">
-    <button type="submit" class="btn primary-btn">Register</button>
-  </div>
-</form>
+    <%#
+       IMPORTANT: The 'action' attribute below should match the route 
+       defined in routes/customer.js for POSTing new customer data.
+       If the route is router.post("/", ...), and that router is mounted at /customers in app.js,
+       then the action here should be "/customers".
+       If the route is router.post("/create", ...), then action="/customers/create".
+       The example below assumes the more standard "/customers" for the POST action.
+    %>
+    <form action="/customers" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="form-group mb-3">
+        <label for="name" class="form-label">Customer Name*</label>
+        <input 
+          type="text" 
+          class="form-control"
+          id="name" 
+          name="name" 
+          value="<%= typeof customerData !== 'undefined' ? customerData.name || '' : '' %>"
+          placeholder="Enter customer name"
+          required
+          maxlength="100"
+        >
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="email" class="form-label">Email*</label>
+        <input 
+          type="email" 
+          class="form-control"
+          id="email" 
+          name="email"
+          value="<%= typeof customerData !== 'undefined' ? customerData.email || '' : '' %>"
+          placeholder="Enter email address"
+          required
+        >
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input 
+          type="tel" 
+          class="form-control"
+          id="phone" 
+          name="phone"
+          value="<%= typeof customerData !== 'undefined' ? customerData.phone || '' : '' %>"
+          placeholder="Enter phone number"
+          maxlength="20"
+        >
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="company" class="form-label">Company</label>
+        <input 
+          type="text" 
+          class="form-control"
+          id="company" 
+          name="company"
+          value="<%= typeof customerData !== 'undefined' ? customerData.company || '' : '' %>"
+          placeholder="Enter company name"
+          maxlength="100"
+        >
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea 
+          class="form-control"
+          id="address" 
+          name="address"
+          rows="3"
+          placeholder="Enter address"
+          maxlength="200"
+        ><%= typeof customerData !== 'undefined' ? customerData.address || '' : '' %></textarea>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status">
+          <% const statuses = ['lead', 'prospect', 'customer', 'former', 'inactive', 'ceo' ]; %>
+          <% statuses.forEach(s => { %>
+            <option value="<%= s %>" <%= (typeof customerData !== 'undefined' && customerData.status === s) ? 'selected' : '' %>>
+              <%= s.charAt(0).toUpperCase() + s.slice(1) %>
+            </option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Create Customer</button>
+        <a href="/customers" class="btn btn-secondary ms-2">Cancel</a>
+      </div>
+    </form>
   </div>
 </div>
+
+<%- /* footer partial is in views/partials/footer.ejs */ -%>
 <%- include('../partials/footer') %>
