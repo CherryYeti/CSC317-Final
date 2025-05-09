@@ -26,7 +26,7 @@
        If the route is router.post("/create", ...), then action="/customers/create".
        The example below assumes the more standard "/customers" for the POST action.
     %>
-    <form action="/customers" method="POST">
+    <form action="/customer/create" method="POST">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
       <div class="form-group mb-3">
@@ -59,7 +59,7 @@
       <div class="form-group mb-3">
         <label for="phone" class="form-label">Phone</label>
         <input 
-          type="tel" 
+          type="phone" 
           class="form-control"
           id="phone" 
           name="phone"
@@ -88,7 +88,8 @@
           class="form-control"
           id="address" 
           name="address"
-          rows="3"
+          rows="10"
+          cols="50"
           placeholder="Enter address"
           maxlength="200"
         ><%= typeof customerData !== 'undefined' ? customerData.address || '' : '' %></textarea>

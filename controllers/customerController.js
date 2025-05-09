@@ -140,7 +140,7 @@ exports.getCustomerById = async (req, res, next) => {
         if (!customer) {
             if (req.flash) req.flash('error_msg', 'Customer not found');
             // Redirect to the main customer list or a specific customer home page
-            return res.redirect(req.query.redirectToHome ? '/customers/home' : '/customers');
+            return res.redirect(req.query.redirectToHome ? '/customer/home' : '/customer/home');
         }
         res.render('customer/detail', {
             title: `Customer: ${customer.name}`,
@@ -151,7 +151,7 @@ exports.getCustomerById = async (req, res, next) => {
         console.error(`Error fetching customer ${req.params.id}:`, error);
         if (error.kind === 'ObjectId') {
             if (req.flash) req.flash('error_msg', 'Invalid Customer ID format');
-            return res.redirect(req.query.redirectToHome ? '/customers/home' : '/customers');
+            return res.redirect(req.query.redirectToHome ? '/customer/home' : '/customer/home');
         }
         next(error);
     }
@@ -167,7 +167,7 @@ exports.getEditCustomerForm = async (req, res, next) => {
         const customer = await Customer.findById(req.params.id).lean();
         if (!customer) {
             if (req.flash) req.flash('error_msg', 'Customer not found');
-            return res.redirect(req.query.redirectToHome ? '/customers/home' : '/customers');
+            return res.redirect(req.query.redirectToHome ? '/customer/home' : '/customer/home');
         }
         res.render('customer/edit', {
             title: 'Edit Customer',
@@ -179,7 +179,7 @@ exports.getEditCustomerForm = async (req, res, next) => {
         console.error(`Error fetching customer ${req.params.id} for edit:`, error);
         if (error.kind === 'ObjectId') {
             if (req.flash) req.flash('error_msg', 'Invalid Customer ID format');
-            return res.redirect(req.query.redirectToHome ? '/customers/home' : '/customers');
+            return res.redirect(req.query.redirectToHome ? '/customer/home' : '/customer');
         }
         next(error);
     }
@@ -233,7 +233,7 @@ exports.createCustomer = async (req, res, next) => {
         if (req.flash) { // Using connect-flash for success message
             req.flash('success_msg', 'Customer created successfully!');
         }
-        res.redirect('/customers'); // Redirect to the main customer list
+        res.redirect('/customer/list'); // Redirect to the main customer list
 
     } catch (error) {
         console.error("Error saving new customer:", error);
@@ -294,11 +294,11 @@ exports.updateCustomer = async (req, res, next) => {
 
         if (!updatedCustomer) {
             if (req.flash) req.flash('error_msg', 'Customer not found for update');
-            return res.redirect('/customers'); // Standardized redirect
+            return res.redirect('/customer/home'); // Standardized redirect
         }
 
         if (req.flash) req.flash('success_msg', 'Customer updated successfully!');
-        res.redirect(`/customers/${customerId}`); // Standardized redirect
+        res.redirect(`/customer/detail/${customerId}`); // Standardized redirect
 
     } catch (error) {
         console.error(`Error updating customer ${customerId}:`, error);
@@ -330,17 +330,17 @@ exports.deleteCustomer = async (req, res, next) => {
 
         if (!deletedCustomer) {
             if (req.flash) req.flash('error_msg', 'Customer not found for deletion');
-            return res.redirect('/customers'); // Standardized redirect
+            return res.redirect('/customer/home'); // Standardized redirect
         }
 
         if (req.flash) req.flash('success_msg', 'Customer deleted successfully!');
-        res.redirect('/customers'); // Standardized redirect
+        res.redirect('/customer/home'); // Standardized redirect
 
     } catch (error) {
         console.error(`Error deleting customer ${req.params.id}:`, error);
         if (error.kind === 'ObjectId') {
             if (req.flash) req.flash('error_msg', 'Invalid Customer ID format');
-            return res.redirect('/customers'); // Standardized redirect
+            return res.redirect('/customer/home'); // Standardized redirect
         }
         next(error);
     }
