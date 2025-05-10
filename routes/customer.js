@@ -50,6 +50,6 @@ router.put("/edit/:id", customerController.updateCustomer);
 
 // 8. Process the deletion of a customer
 // DELETE /customers/:id
-router.delete("/:id", customerController.deleteCustomer);
+router.delete("/delete", customerController.deleteCustomer); // originally just /:id
 
 module.exports = router;

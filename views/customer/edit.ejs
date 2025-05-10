@@ -1,7 +1,87 @@
 <%- include('./header') %>
 <h1><%= title %></h1>
 <%- include('../partials/flash-message') %>
-<%= customerData.name%>
+<form action="/customer/edit/:id" method="PUT">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      
+      <div class="form-group">
+        <label for="name">Username</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name"
+          value="<%= customerData.name %>"
+          required
+          minlength="3"
+          maxlength="20"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email"
+          value="<%= customerData.email %>"
+          disabled
+        >
+        <div class="form-hint">Email cannot be changed</div>
+      </div>
 
+            <div class="form-group">
+        <label for="phone">Username</label>
+        <input 
+          type="text" 
+          id="phone" 
+          name="phone"
+          value="<%= customerData.phone %>"
+          required
+          minlength="3"
+          maxlength="20"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="company">Email Address</label>
+        <input 
+          type="company" 
+          id="company" 
+          name="company"
+          value="<%= customerData.company %>"
+          disabled
+        >
+        <div class="form-hint">Email cannot be changed</div>
+      </div>
+
+            <div class="form-group">
+        <label for="address">Username</label>
+        <input 
+          type="text" 
+          id="address" 
+          name="address"
+          value="<%= customerData.address %>"
+          required
+          minlength="3"
+          maxlength="20"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="status">Email Address</label>
+        <input 
+          type="text" 
+          id="status" 
+          name="status"
+          value="<%= customerData.status %>"
+          disabled
+        >
+        <div class="form-hint">Email cannot be changed</div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn primary-btn">Save Changes</button>
+      </div>
+    </form>
     </div>
 <%- include('../partials/footer') %>
