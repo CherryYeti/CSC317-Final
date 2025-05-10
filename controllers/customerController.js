@@ -110,7 +110,9 @@ exports.getCreateCustomerForm = (req, res) => {
  * @route   GET /customers/:id
  * @access  Private (requires auth)
  */
+
 exports.getCustomerById = async (req, res, next) => {
+
     try {
         const customer = await Customer.findById(req.params.id).lean();
         if (!customer) {
