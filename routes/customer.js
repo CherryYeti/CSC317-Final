@@ -21,8 +21,7 @@ router.use(isAuthenticated);
 // 1. Display list of all customers (MAIN CUSTOMER PAGE)
 // GET /customers/
 router.get("/home", customerController.getCustomerList); // Ensure getCustomerHome is defined and renders a meaningful page
-router.get("/edit", customerController.getCustomerList);
-router.get("/detail/:id", customerController.getCustomerById);
+
 
 // 2. Show the form to create a new customer
 // GET /customers/new
@@ -38,15 +37,16 @@ router.post("/create", customerController.createCustomer); // Submitting to the 
 
 // 5. Display details for a specific customer
 // GET /customers/:id
-router.get("/:id", customerController.getCustomerById);
+// router.get("/:id", customerController.getCustomerById);
+router.get("/detail/:id", customerController.getCustomerById);
 
 // 6. Show the form to edit an existing customer
 // GET /customers/:id/edit
-router.get("/:id/edit", customerController.getEditCustomerForm);
+router.get("/edit/:id", customerController.getEditCustomerForm);
 
 // 7. Process the submission of the edit form
 // PUT /customers/:id
-router.put("/:id", customerController.updateCustomer);
+router.put("/edit/:id", customerController.updateCustomer);
 
 // 8. Process the deletion of a customer
 // DELETE /customers/:id
