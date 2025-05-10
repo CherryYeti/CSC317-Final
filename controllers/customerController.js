@@ -90,7 +90,6 @@ exports.getCustomerList = async (req, res, next) => {
     }
 };
 
-
 /**
  * @desc    Display form to create a new customer
  * @route   GET /customers/new
@@ -104,6 +103,7 @@ exports.getCreateCustomerForm = (req, res) => {
         customerData: {}
     });
 };
+
 
 /**
  * @desc    Display details for a single customer

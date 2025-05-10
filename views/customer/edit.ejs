@@ -1,3 +1,15 @@
 <%- include('./header') %>
-<p>Edit Customers</p>
+<h1><%= title %></h1>
+<%- include('../partials/flash-message') %>
+<div class = "container mt-4">
+    <!-- 10 customers/ page limit, starts from end of list -> start, so it displays the last page as the first page -->
+        <ul style="list-style: none">
+            <% customers.forEach(customer => { %>
+            <li>
+                <a href="./detail/<%=customer._id%>"><%= customer.name%></a>
+                    </li>
+            <% }); %>
+        </ul>
+        <p><%= totalCustomers %></p>
+    </div>
 <%- include('../partials/footer') %>

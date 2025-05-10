@@ -21,7 +21,9 @@ router.use(isAuthenticated);
 // 1. Display list of all customers (MAIN CUSTOMER PAGE)
 // GET /customers/
 router.get("/home", customerController.getCustomerList); // Ensure getCustomerHome is defined and renders a meaningful page
+router.get("/edit", customerController.getCustomerList);
 router.get("/detail/:id", customerController.getCustomerById);
+
 // 2. Show the form to create a new customer
 // GET /customers/new
 router.get("/create", customerController.getCreateCustomerForm);
