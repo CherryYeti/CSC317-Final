@@ -1,18 +1,49 @@
 <%- include('./header') %>
-<h1><%= title %></h1>
+<%- /* Assuming your form-errors/flash-message partial is in views/partials/ */ -%>
 <%- include('../partials/flash-message') %>
-<div class = "container mt-4">
-    <!-- 10 customers/ page limit, starts from end of list -> start, so it displays the last page as the first page -->
-        <ul style="list-style: none">
-            <% customers.forEach(customer => { %>
-            <li>
-                <a href="./detail/<%=customer._id%>"><%= customer.name%></a>
-                <a href="./edit/<%=customer._id%>">Edit</a>
-                    </li>
-            <% }); %>
-        </ul>
-        <p><%= totalCustomers %></p>
+
+<div class="container mt-4">
+    <h1><%= title %></h1> <%# This should be 'Customers' or 'Customer List' from controller %>
+
+    <%# Optional: Add Search and Filter Forms here later %>
+
+    <div class="table-responsive mb-3">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (customers && customers.length > 0) { %>
+                    <% customers.forEach(customer => { %>
+                        <tr>
+                            <td><%= customer.name %></td>
+                            <td><%= customer.email %></td>
+                            <td><%= customer.company || '-' %></td>
+                            <td><%= customer.status ? customer.status.charAt(0).toUpperCase() + customer.status.slice(1) : '-' %></td>
+                            <td>
+ 
+                                <a href="./detail/<%=customer._id%>"><%= customer.name%></a>
+                                 <a href="./edit/<%=customer._id%>">Edit</a>
+                                <%# Add delete button/form later %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="text-center">No customers found.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
+    
+
 
      <%# --- PAGINATION CONTROLS --- %>
     <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
