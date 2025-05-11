@@ -22,7 +22,7 @@
                 <% if (currentPage > 1) { %>
                     <li class="page-item">
                         <%# Construct query string, ensuring all existing filters/sorts are preserved %>
-                        <a class="page-link" href="/customer?page=<%= currentPage - 1 %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>">Previous</a>
+                        <a class="page-link" href="/customer/home?page=<%= currentPage - 1 %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>">Previous</a>
                     </li>
                 <% } else { %>
                     <li class="page-item disabled">
