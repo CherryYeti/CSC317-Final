@@ -46,7 +46,7 @@ router.get("/edit/:id", customerController.getEditCustomerForm);
 
 // 7. Process the submission of the edit form
 // PUT /customers/:id
-router.put("/edit/:id", customerController.updateCustomer);
+router.post("/edit/:id", customerController.updateCustomer);
 
 // 8. Process the deletion of a customer
 // DELETE /customers/:id
