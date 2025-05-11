@@ -1,3 +1,17 @@
-<%- include('../partials/header') %>
-<p>Customer Details Page</p>
+<%- include('./header') %>
+<p>Customer Delete Page</p>
+<div class = "container mt-4">
+    <!-- 10 customers/ page limit, starts from end of list -> start, so it displays the last page as the first page -->
+        <ul style="list-style: none">
+            <% customers.forEach(customer => { %>
+            <li>
+                <a href="./detail/<%=customer._id%>"><%= customer.name%></a>
+                <form action="/customer/delete/<%=customer._id%>" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit">Delete</button>
+                </form>
+                    </li>
+            <% }); %>
+        </ul>
+    </div>
 <%- include('../partials/footer') %>

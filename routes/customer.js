@@ -50,6 +50,7 @@ router.post("/edit/:id", customerController.updateCustomer);
 
 // 8. Process the deletion of a customer
 // DELETE /customers/:id
-router.delete("/delete", customerController.deleteCustomer); // originally just /:id
+router.get("/delete", customerController.deleteCustomerPage)
+router.post("/delete/:id", customerController.deleteCustomer); // originally just /:id
 
 module.exports = router;

@@ -298,9 +298,67 @@ exports.updateCustomer = async (req, res, next) => {
 
 /**
  * @desc    Process deleting a customer
- * @route   DELETE /customers/:id
+ * @route   DELETE /customer/:id
  * @access  Private (requires auth)
  */
+exports.deleteCustomerPage = async (req, res, next) => {
+try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10; // Default 10 items per page
+        const skip = (page - 1) * limit;
+
+        let queryConditions = {}; // Object to build our MongoDB query
+        let sortOptions = { createdAt: -1 }; // Default sort: newest first
+
+        // Search functionality (by name, case-insensitive)
+        if (req.query.search && req.query.search.trim() !== '') {
+            queryConditions.name = { $regex: req.query.search.trim(), $options: 'i' };
+        }
+
+        // Filter by status
+        if (req.query.status && req.query.status.trim() !== '') {
+            queryConditions.status = req.query.status.trim();
+        }
+
+        // Sorting functionality
+        if (req.query.sortBy) {
+            const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // asc or desc
+            sortOptions = { [req.query.sortBy]: sortOrder };
+        }
+
+        // Fetch customers with conditions, sort, pagination
+        const customers = await Customer.find(queryConditions)
+            .sort(sortOptions)
+            .skip(skip)
+            .limit(limit)
+            .lean(); // .lean() can improve performance for read-only operations
+
+        // Get total number of customers matching the query (for pagination)
+        const totalCustomers = await Customer.countDocuments(queryConditions);
+        const totalPages = Math.ceil(totalCustomers / limit);
+
+        res.render('customer/delete', {
+            title: 'Customer List',
+            customers: customers,
+            user: req.session.user,
+            success_msg: req.flash ? req.flash('success_msg') : null,
+            error_msg: req.flash ? req.flash('error_msg') : null,
+            // Pagination variables
+            currentPage: page,
+            totalPages: totalPages,
+            limit: limit,
+            totalCustomers: totalCustomers,
+            // For maintaining state in view filters/search bars
+            searchQuery: req.query.search || '',
+            currentStatus: req.query.status || '',
+            currentSortBy: req.query.sortBy || 'createdAt',
+            currentSortOrder: req.query.sortOrder || 'desc'
+        });
+    } catch (error) {
+        console.error("Error fetching customers:", error);
+        next(error); // Pass error to your central error handler
+    }
+}
 exports.deleteCustomer = async (req, res, next) => {
     try {
         const customerId = req.params.id;
