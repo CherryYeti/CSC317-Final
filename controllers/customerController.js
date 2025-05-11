@@ -302,7 +302,7 @@ exports.updateCustomer = async (req, res, next) => {
  * @access  Private (requires auth)
  */
 exports.deleteCustomerPage = async (req, res, next) => {
-try {
+ try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10; // Default 10 items per page
         const skip = (page - 1) * limit;
@@ -357,6 +357,28 @@ try {
     } catch (error) {
         console.error("Error fetching customers:", error);
         next(error); // Pass error to your central error handler
+    }
+}
+exports.deleteCustomerConfirmation = async (req, res, next) => {
+        try {
+        const customer = await Customer.findById(req.params.id).lean();
+        if (!customer) {
+            if (req.flash) req.flash('error_msg', 'Customer not found');
+            // Redirect to the main customer list or a specific customer home page
+            return res.redirect(req.query.redirectToHome ? '/customer/home' : '/customer/home');
+        }
+        res.render('customer/confirmation', {
+            title: `Really Delete This Customer?`,
+            customer: customer,
+            user: req.session.user
+        });
+    } catch (error) {
+        console.error(`Error fetching customer ${req.params.id}:`, error);
+        if (error.kind === 'ObjectId') {
+            if (req.flash) req.flash('error_msg', 'Invalid Customer ID format');
+            return res.redirect(req.query.redirectToHome ? '/customer/home' : '/customer/home');
+        }
+        next(error);
     }
 }
 exports.deleteCustomer = async (req, res, next) => {

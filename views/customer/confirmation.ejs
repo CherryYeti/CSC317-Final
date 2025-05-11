@@ -1,0 +1,17 @@
+<%- include('./header') %>
+<h1><%= title %></h1>
+<%- include('../partials/flash-message') %>
+    <div>
+        <p>Name: <%=customer.name%></p>
+        <p>Email: <%=customer.email%></p>
+        <p>Phone Number: <%=customer.phone%></p>
+        <p>Company Name: <%=customer.company%></p>
+        <p>Company Location: <%=customer.address%></p>
+        <p>Status: <%=customer.status%></p>
+    </div>
+<a href="/customer/delete">No</a>
+<form action="/customer/confirmation/<%=customer._id%>" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button type="submit">Yes</button>
+    </form>
+<%- include('../partials/footer') %>
