@@ -38,7 +38,7 @@
                         </li>
                     <% } else { %>
                         <li class="page-item">
-                            <a class="page-link" href="/customer?page=<%= i %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>"><%= i %></a>
+                            <a class="page-link" href="/customer/home?page=<%= i %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>"><%= i %></a>
                         </li>
                     <% } %>
                 <% } %>
@@ -46,7 +46,7 @@
                 <%# "Next" page link %>
                 <% if (currentPage < totalPages) { %>
                     <li class="page-item">
-                        <a class="page-link" href="/customer?page=<%= currentPage + 1 %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>">Next</a>
+                        <a class="page-link" href="/customer/home?page=<%= currentPage + 1 %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>">Next</a>
                     </li>
                 <% } else { %>
                     <li class="page-item disabled">
