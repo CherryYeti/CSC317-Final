@@ -1,0 +1,280 @@
+/* Customer List Page Styling */
+
+/* Customer table styling */
+.customer-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.customer-table thead {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.customer-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.customer-table tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.customer-table tr:last-child {
+  border-bottom: none;
+}
+
+.customer-table td {
+  padding: 1rem;
+}
+
+/* Action buttons in table */
+.action-link {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.view-link {
+  background-color: var(--primary-color);
+  color: white !important;
+}
+
+.edit-link {
+  background-color: var(--secondary-color); 
+  color: white !important;
+}
+
+.delete-link {
+  background-color: var(--error-color);
+  color: white !important;
+}
+
+.action-link:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Customer status badges */
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.status-lead {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-prospect {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.status-customer {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-former {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-inactive {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.status-ceo {
+  background-color: #d4c5f9;
+  color: #2e0e7b;
+}
+
+/* Search and filter controls */
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.search-box {
+  flex: 2;
+  min-width: 200px;
+}
+
+.filter-box {
+  flex: 1;
+  min-width: 150px;
+}
+
+.search-box input,
+.filter-box select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.page-item a,
+.page-item span {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  background-color: var(--white);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.page-item.active span {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.page-item a:hover {
+  background-color: var(--background-color);
+  text-decoration: none;
+}
+
+.page-item.disabled span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Add Customer button */
+.add-customer-btn {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Empty state styling */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background-color: var(--white);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.empty-state p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+}
+
+/* Dark mode adjustments */
+html[data-theme="dark"] .customer-table thead {
+  background-color: #333;
+}
+
+html[data-theme="dark"] .action-link {
+  border: 1px solid #444;
+}
+
+html[data-theme="dark"] .view-link {
+  color: black !important;
+}
+
+html[data-theme="dark"] .edit-link {
+  color: black !important;
+}
+
+html[data-theme="dark"] .active .page-link {
+  color: black !important;
+}
+
+html[data-theme="dark"] .delete-link {
+  color: white !important;
+}
+
+html[data-theme="light"] .view-link {
+  color: white !important;
+}
+
+html[data-theme="light"] .edit-link {
+  color: white !important;
+}
+
+html[data-theme="light"] .delete-link {
+  color: white !important;
+}
+
+html[data-theme="dark"] .status-badge {
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .customer-table thead {
+    display: none;
+  }
+  
+  .customer-table tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+  
+  .customer-table td {
+    display: block;
+    text-align: right;
+    padding: 0.75rem;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .customer-table td:last-child {
+    border-bottom: none;
+  }
+  
+  .customer-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0.75rem;
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .filter-controls {
+    flex-direction: column;
+  }
+}

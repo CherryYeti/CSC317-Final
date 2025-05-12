@@ -6,7 +6,7 @@
     <title><%= title %> | ClientSphere</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/dashboard.css" />
-
+    <link rel="stylesheet" href="/css/customer.css" />
   </head>
   <body>
     <header>
@@ -16,19 +16,33 @@
         </div>
         <ul class="nav-links">
           <li>
-            <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">
+            <button
+              id="theme-toggle-btn"
+              class="theme-toggle"
+              aria-label="Toggle theme"
+            >
               <!-- Sun icon shows in dark mode (to switch to light) -->
-              <img src="/icons/sun-dark.svg" alt="Switch to light mode" class="sun-icon">
-              
+              <img
+                src="/icons/sun-dark.svg"
+                alt="Switch to light mode"
+                class="sun-icon"
+              />
+
               <!-- Moon icon shows in light mode (to switch to dark) -->
-              <img src="/icons/moon-light.svg" alt="Switch to dark mode" class="moon-icon">
+              <img
+                src="/icons/moon-light.svg"
+                alt="Switch to dark mode"
+                class="moon-icon"
+              />
             </button>
           </li>
           <li>
             <a href="/">Exit Create View</a>
-            </li>
+          </li>
           <li>
-            <a href="/customer/home" class="<%= path === '/' ? 'active' : '' %>">Home</a>
+            <a href="/customer/home" class="<%= path === '/' ? 'active' : '' %>"
+              >Home</a
+            >
           </li>
           <li>
             <a
@@ -37,19 +51,10 @@
               >Create Customer</a
             >
           </li>
-          <!-- <li>
-            <a
-              href="./edit"
-              class="<%= path === '/user/settings' ? 'active' : '' %>"
-              >Edit Customer</a
-            >
-          </li> -->
           <li><a href="/customer/delete">Delete a Customer</a></li>
           <li><a href="/auth/logout">Logout</a></li>
-
         </ul>
       </nav>
     </header>
-
   </body>
 </html>

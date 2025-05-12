@@ -2,13 +2,40 @@
 <%- /* Assuming your form-errors/flash-message partial is in views/partials/ */ -%>
 <%- include('../partials/flash-message') %>
 
-<div class="container mt-4">
-    <h1><%= title %></h1> <%# This should be 'Customers' or 'Customer List' from controller %>
+<div class="container">
+    <h1 class="page-title"><%= title %></h1>
 
-    <%# Optional: Add Search and Filter Forms here later %>
+    <!-- Search and Filter Section -->
+    <form action="/customer/home" method="GET" class="filter-controls">
+        <div class="search-box">
+            <label for="search">Search Customers</label>
+            <input 
+                type="text" 
+                id="search" 
+                name="search" 
+                value="<%= searchQuery || '' %>" 
+                placeholder="Search by name..."
+            >
+        </div>
+        <div class="filter-box">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="">All Statuses</option>
+                <% ['lead', 'prospect', 'customer', 'former', 'inactive', 'ceo'].forEach(statusOption => { %>
+                    <option value="<%= statusOption %>" <%= currentStatus === statusOption ? 'selected' : '' %>>
+                        <%= statusOption.charAt(0).toUpperCase() + statusOption.slice(1) %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="filter-buttons">
+            <button type="submit" class="btn primary-btn">Apply Filters</button>
+            <a href="/customer/home" class="btn secondary-btn">Clear</a>
+        </div>
+    </form>
 
-    <div class="table-responsive mb-3">
-        <table class="table table-striped table-hover">
+    <% if (customers && customers.length > 0) { %>
+        <table class="customer-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -19,40 +46,39 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (customers && customers.length > 0) { %>
-                    <% customers.forEach(customer => { %>
-                        <tr>
-                            <td><%= customer.name %></td>
-                            <td><%= customer.email %></td>
-                            <td><%= customer.company || '-' %></td>
-                            <td><%= customer.status ? customer.status.charAt(0).toUpperCase() + customer.status.slice(1) : '-' %></td>
-                            <td>
- 
-                                <a href="./detail/<%=customer._id%>"><%= customer.name%></a>
-                                 <a href="./edit/<%=customer._id%>">Edit</a>
-                                <%# Add delete button/form later %>
-                            </td>
-                        </tr>
-                    <% }); %>
-                <% } else { %>
+                <% customers.forEach(customer => { %>
                     <tr>
-                        <td colspan="5" class="text-center">No customers found.</td>
+                        <td data-label="Name"><%= customer.name %></td>
+                        <td data-label="Email"><%= customer.email %></td>
+                        <td data-label="Company"><%= customer.company || '-' %></td>
+                        <td data-label="Status">
+                            <span class="status-badge status-<%= customer.status %>">
+                                <%= customer.status ? customer.status.charAt(0).toUpperCase() + customer.status.slice(1) : '-' %>
+                            </span>
+                        </td>
+                        <td data-label="Actions">
+                            <a href="./detail/<%= customer._id %>" class="action-link view-link">View</a>
+                            <a href="./edit/<%= customer._id %>" class="action-link edit-link">Edit</a>
+                            <a href="./confirmation/<%= customer._id %>" class="action-link delete-link">Delete</a>
+                        </td>
                     </tr>
-                <% } %>
+                <% }); %>
             </tbody>
         </table>
-    </div>
+    <% } else { %>
+        <div class="empty-state">
+            <p>No customers found. Try adjusting your search or add a new customer.</p>
+            <a href="/customer/create" class="btn primary-btn">Add Your First Customer</a>
+        </div>
+    <% } %>
     
-
-
-     <%# --- PAGINATION CONTROLS --- %>
+    <!-- Pagination Controls -->
     <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
         <nav aria-label="Customer Pagination">
-            <ul class="pagination justify-content-center">
-                <%# "Previous" page link %>
+            <ul class="pagination">
+                <!-- Previous page link -->
                 <% if (currentPage > 1) { %>
                     <li class="page-item">
-                        <%# Construct query string, ensuring all existing filters/sorts are preserved %>
                         <a class="page-link" href="/customer/home?page=<%= currentPage - 1 %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>">Previous</a>
                     </li>
                 <% } else { %>
@@ -61,7 +87,7 @@
                     </li>
                 <% } %>
 
-                <%# Page number links (simple example) %>
+                <!-- Page number links -->
                 <% for (let i = 1; i <= totalPages; i++) { %>
                     <% if (i === currentPage) { %>
                         <li class="page-item active" aria-current="page">
@@ -74,7 +100,7 @@
                     <% } %>
                 <% } %>
 
-                <%# "Next" page link %>
+                <!-- Next page link -->
                 <% if (currentPage < totalPages) { %>
                     <li class="page-item">
                         <a class="page-link" href="/customer/home?page=<%= currentPage + 1 %>&search=<%= searchQuery || '' %>&status=<%= currentStatus || '' %>&sortBy=<%= currentSortBy || 'createdAt' %>&sortOrder=<%= currentSortOrder || 'desc' %>">Next</a>
@@ -91,9 +117,9 @@
         <p class="text-center">Total Customers: <%= totalCustomers %></p>
     <% } %>
     
-    <div class="mt-3">
-        <a href="/customer/create" class="btn btn-success">Add New Customer</a>
+    <div class="add-customer-btn">
+        <a href="/customer/create" class="btn primary-btn">Add New Customer</a>
     </div>
-
 </div>
+
 <%- include('../partials/footer') %>
