@@ -1,17 +1,69 @@
-<%- include('./header') %>
-<h1><%= title %></h1>
-<%- include('../partials/flash-message') %>
-    <div>
-        <p>Name: <%=customer.name%></p>
-        <p>Email: <%=customer.email%></p>
-        <p>Phone Number: <%=customer.phone%></p>
-        <p>Company Name: <%=customer.company%></p>
-        <p>Company Location: <%=customer.address%></p>
-        <p>Status: <%=customer.status%></p>
+<%- include('../partials/header') %>
+
+<div class="container">
+  <div class="auth-form">
+    <h1><%= title %></h1>
+
+    <%- include('../partials/flash-message') %>
+
+    <div class="profile-card">
+      <h2 class="text-center">
+        Are you sure you want to delete this customer?
+      </h2>
+
+      <div class="profile-info">
+        <div class="info-item">
+          <span class="label">Name:</span>
+          <span class="value"><%= customer.name %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Email:</span>
+          <span class="value"><%= customer.email %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone Number:</span>
+          <span class="value"><%= customer.phone || 'Not provided' %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Company:</span>
+          <span class="value"><%= customer.company || 'Not provided' %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Address:</span>
+          <span class="value"><%= customer.address || 'Not provided' %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Status:</span>
+          <span class="value">
+            <span class="status-badge status-<%= customer.status %>">
+              <%= customer.status ? customer.status.charAt(0).toUpperCase() +
+              customer.status.slice(1) : '-' %>
+            </span>
+          </span>
+        </div>
+      </div>
+
+      <div
+        class="form-actions"
+        style="
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-top: 2rem;
+        "
+      >
+        <a href="/customer/delete" class="btn secondary-btn">No, Cancel</a>
+        <form
+          action="/customer/confirmation/<%= customer._id %>"
+          method="POST"
+          style="margin: 0"
+        >
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button type="submit" class="btn delete-link">Yes, Delete</button>
+        </form>
+      </div>
     </div>
-<a href="/customer/delete">No</a>
-<form action="/customer/confirmation/<%=customer._id%>" method="POST">
-    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-    <button type="submit">Yes</button>
-    </form>
+  </div>
+</div>
+
 <%- include('../partials/footer') %>

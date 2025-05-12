@@ -6,7 +6,7 @@
     <title><%= title %> | ClientSphere</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/dashboard.css" />
-
+    <link rel="stylesheet" href="/css/customer.css" />
   </head>
   <body>
     <header>
@@ -24,14 +24,7 @@
               <img src="/icons/moon-light.svg" alt="Switch to dark mode" class="moon-icon">
             </button>
           </li>
-          <% if (isAuthenticated) {%>
-            <li>
-              <a 
-              href="/customer/home"
-              class="<%= path === '../customer' ? 'active' : '' %>"
-              >Create View</a>
-              </li>
-          <%}%>
+          
 
           <li>
             <a href="/" class="<%= path === '/' ? 'active' : '' %>">Home</a>
@@ -43,7 +36,12 @@
           </li>
 
           <% if (isAuthenticated) { %>
-            
+              <li>
+                <a 
+                href="/customer/home"
+                class="<%= path === '../customer' ? 'active' : '' %>"
+                >Customers</a>
+                </li>
           <li>
             <a
               href="/user/profile"

@@ -1,12 +1,54 @@
-<%- include('./header') %>
-    <div>
-        <p>Customer Details Page</p>
-        <p>Name: <%=customer.name%></p>
-        <p>Email: <%=customer.email%></p>
-        <p>Phone Number: <%=customer.phone%></p>
-        <p>Company Name: <%=customer.company%></p>
-        <p>Company Location: <%=customer.address%></p>
-        <p>Status: <%=customer.status%></p>
+<%- include('../partials/header') %>
+
+<div class="container">
+  <div class="profile-container">
+    <h1>Customer Details</h1>
+
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <span><%= customer.name.charAt(0) %></span>
+        </div>
+        <div class="profile-title">
+          <h2><%= customer.name %></h2>
+          <p class="subtitle">
+            <span class="status-badge status-<%= customer.status %>">
+              <%= customer.status ? customer.status.charAt(0).toUpperCase() +
+              customer.status.slice(1) : '-' %>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <div class="info-item">
+          <span class="label">Email Address</span>
+          <span class="value"><%= customer.email %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Phone Number</span>
+          <span class="value"><%= customer.phone || 'Not provided' %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Company Name</span>
+          <span class="value"><%= customer.company || 'Not provided' %></span>
+        </div>
+        <div class="info-item">
+          <span class="label">Address</span>
+          <span class="value"><%= customer.address || 'Not provided' %></span>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <a href="/customer/edit/<%= customer._id %>" class="btn secondary-btn"
+          >Edit Customer</a
+        >
+        <a href="/customer/home" class="btn primary-btn"
+          >Back to Customer List</a
+        >
+      </div>
     </div>
+  </div>
+</div>
 
 <%- include('../partials/footer') %>

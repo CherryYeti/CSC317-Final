@@ -1,39 +1,19 @@
-<%- /* using a modified header.ejs found in views/customer */ -%>
-<%- include('header') %>
-<%- /* form-errors partial is in views/partials/form-errors.ejs */ -%>
-<%- include('../partials/form-errors') %>
+<%- include('../partials/header') %>
 
-<div class="container mt-4">
-  <div class="auth-form"> <%# Assuming this class provides styling for your forms %>
-    <h1><%= title %></h1> <%# 'title' is passed from your controller %>
+<div class="container">
+  <div class="auth-form">
+    <h1><%= title %></h1>
+    
+    <%- include('../partials/flash-message') %>
+    <%- include('../partials/form-errors') %>
 
-    <%# Display Validation Errors if they exist and are passed to this view %>
-    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-      <div class="alert alert-danger" role="alert">
-        <ul class="mb-0">
-          <% errors.forEach(error => { %>
-            <li><%= error.msg %></li>
-          <% }); %>
-        </ul>
-      </div>
-    <% } %>
-
-    <%#
-       IMPORTANT: The 'action' attribute below should match the route 
-       defined in routes/customer.js for POSTing new customer data.
-       If the route is router.post("/", ...), and that router is mounted at /customers in app.js,
-       then the action here should be "/customers".
-       If the route is router.post("/create", ...), then action="/customers/create".
-       The example below assumes the more standard "/customers" for the POST action.
-    %>
     <form action="/customer/create" method="POST">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-      <div class="form-group mb-3">
-        <label for="name" class="form-label">Customer Name*</label>
+      <div class="form-group">
+        <label for="name">Customer Name*</label>
         <input 
           type="text" 
-          class="form-control"
           id="name" 
           name="name" 
           value="<%= typeof customerData !== 'undefined' ? customerData.name || '' : '' %>"
@@ -43,11 +23,10 @@
         >
       </div>
 
-      <div class="form-group mb-3">
-        <label for="email" class="form-label">Email*</label>
+      <div class="form-group">
+        <label for="email">Email*</label>
         <input 
           type="email" 
-          class="form-control"
           id="email" 
           name="email"
           value="<%= typeof customerData !== 'undefined' ? customerData.email || '' : '' %>"
@@ -56,11 +35,10 @@
         >
       </div>
 
-      <div class="form-group mb-3">
-        <label for="phone" class="form-label">Phone</label>
+      <div class="form-group">
+        <label for="phone">Phone</label>
         <input 
-          type="phone" 
-          class="form-control"
+          type="text" 
           id="phone" 
           name="phone"
           value="<%= typeof customerData !== 'undefined' ? customerData.phone || '' : '' %>"
@@ -69,11 +47,10 @@
         >
       </div>
 
-      <div class="form-group mb-3">
-        <label for="company" class="form-label">Company</label>
+      <div class="form-group">
+        <label for="company">Company</label>
         <input 
           type="text" 
-          class="form-control"
           id="company" 
           name="company"
           value="<%= typeof customerData !== 'undefined' ? customerData.company || '' : '' %>"
@@ -82,23 +59,21 @@
         >
       </div>
 
-      <div class="form-group mb-3">
-        <label for="address" class="form-label">Address</label>
+      <div class="form-group">
+        <label for="address">Address</label>
         <textarea 
-          class="form-control"
           id="address" 
           name="address"
-          rows="10"
-          cols="50"
+          rows="3"
           placeholder="Enter address"
           maxlength="200"
         ><%= typeof customerData !== 'undefined' ? customerData.address || '' : '' %></textarea>
       </div>
 
-      <div class="form-group mb-3">
-        <label for="status" class="form-label">Status</label>
-        <select class="form-select" id="status" name="status">
-          <% const statuses = ['lead', 'prospect', 'customer', 'former', 'inactive', 'ceo' ]; %>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <% const statuses = ['lead', 'prospect', 'customer', 'former', 'inactive', 'ceo']; %>
           <% statuses.forEach(s => { %>
             <option value="<%= s %>" <%= (typeof customerData !== 'undefined' && customerData.status === s) ? 'selected' : '' %>>
               <%= s.charAt(0).toUpperCase() + s.slice(1) %>
@@ -108,12 +83,11 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Create Customer</button>
-        <a href="/customer/create" class="btn btn-secondary ms-2">Cancel</a>
+        <button type="submit" class="btn primary-btn">Create Customer</button>
+        <a href="/customer/home" class="btn secondary-btn">Cancel</a>
       </div>
     </form>
   </div>
 </div>
 
-<%- /* footer partial is in views/partials/footer.ejs */ -%>
 <%- include('../partials/footer') %>
