@@ -106,3 +106,112 @@
       grid-column: span 1;
     }
   }
+  
+  .dashboard-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+    color: var(--primary-color);
+  }
+  
+  /* Mini table for recent customers */
+  .mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  
+  .mini-table th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid var(--border-color);
+  }
+  
+  .mini-table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .mini-table .view-link {
+    padding: 3px 8px;
+    font-size: 0.8rem;
+  }
+  
+  /* Status distribution bars */
+  .status-distribution {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .status-bar {
+    display: grid;
+    grid-template-columns: 80px 1fr 30px;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    height: 100%;
+    border-radius: 5px;
+  }
+  
+  .progress.status-lead {
+    background-color: #f8d7da;
+  }
+  
+  .progress.status-prospect {
+    background-color: #cce5ff;
+  }
+  
+  .progress.status-customer {
+    background-color: #d4edda;
+  }
+  
+  .progress.status-former {
+    background-color: #fff3cd;
+  }
+  
+  .progress.status-inactive {
+    background-color: #e2e3e5;
+  }
+  
+  .progress.status-ceo {
+    background-color: #d4c5f9;
+  }
+  
+  .status-count {
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  /* Action links in quick actions */
+  .card-content .action-link {
+    display: block;
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: var(--primary-color);
+    color: white !important;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .card-content .action-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dark mode adjustments */
+  html[data-theme="dark"] .card-content .action-link {
+    background-color: var(--text-color);
+    color: var(--white) !important;
+  }

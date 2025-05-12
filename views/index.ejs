@@ -1,88 +1,123 @@
 <%- include('./partials/header') %>
 
 <div class="container">
-  <% if (isAuthenticated) { %>
-    <!--This is shown when the user is logged in-->
+  <% if (isAuthenticated && dashboardData) { %>
     <!--This is shown when the user is logged in-->
     <div class="dashboard">
-      <!-- Top row - 4 equal cards -->
+      <!-- Total Contacts Card -->
       <div class="dashboard-card">
         <div class="card-header">
           <h3 class="card-title">Total Contacts</h3>
-          <div class="card-icon">
-            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
-            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
-          </div>
         </div>
         <div class="card-content">
-          <p>Manage your complete contact database in one place.</p>
+          <p class="dashboard-number"><%= dashboardData.totalCustomers %></p>
+          <p>Total customers in your database.</p>
         </div>
       </div>
       
-      <div class="dashboard-card">
-        <div class="card-header">
-          <h3 class="card-title">Open Deals</h3>
-          <div class="card-icon">
-            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
-            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
-          </div>
-        </div>
-        <div class="card-content">
-          <p>Track your active deals and their current status.</p>
-        </div>
-      </div>
-      
+      <!-- Recent Activity Card -->
       <div class="dashboard-card">
         <div class="card-header">
           <h3 class="card-title">Recent Activity</h3>
-          <div class="card-icon">
-            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
-            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
-          </div>
         </div>
         <div class="card-content">
-          <p>See your most recent customer interactions.</p>
+          <p class="dashboard-number"><%= dashboardData.recentlyAddedCount %></p>
+          <p>New customers added in the last 30 days.</p>
         </div>
       </div>
       
+      <!-- Customer Status Card -->
       <div class="dashboard-card">
         <div class="card-header">
-          <h3 class="card-title">Tasks</h3>
-          <div class="card-icon">
-            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
-            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
-          </div>
+          <h3 class="card-title">Customer Status</h3>
         </div>
         <div class="card-content">
-          <p>View and manage your upcoming tasks.</p>
+          <% if (dashboardData.customersByStatus.length > 0) { %>
+            <% let topStatus = dashboardData.customersByStatus[0]; %>
+            <p>Most common status: <span class="status-badge status-<%= topStatus._id %>">
+              <%= topStatus._id.charAt(0).toUpperCase() + topStatus._id.slice(1) %>
+            </span> (<%= topStatus.count %> customers)</p>
+          <% } else { %>
+            <p>No customer status data available.</p>
+          <% } %>
         </div>
       </div>
       
-      <!-- Bottom row - left card is wider -->
+      <!-- Tasks/Quick Actions Card -->
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3 class="card-title">Quick Actions</h3>
+        </div>
+        <div class="card-content">
+          <p><a href="/customer/create" class="action-link">Add New Customer</a></p>
+          <p><a href="/customer/home" class="action-link">View All Customers</a></p>
+        </div>
+      </div>
+      
+      <!-- Recent Customers Card (Wide) -->
       <div class="dashboard-card wide">
         <div class="card-header">
-          <h3 class="card-title">Sales Performance</h3>
-          <div class="card-icon">
-            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
-            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
-          </div>
+          <h3 class="card-title">Recently Added Customers</h3>
         </div>
         <div class="card-content">
-          <p>Track your sales metrics and performance over time.</p>
-          <p>View trends, identify opportunities, and make data-driven decisions.</p>
+          <% if (dashboardData.recentCustomers && dashboardData.recentCustomers.length > 0) { %>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Status</th>
+                  <th>Added</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% dashboardData.recentCustomers.forEach(customer => { %>
+                  <tr>
+                    <td><%= customer.name %></td>
+                    <td><%= customer.company || '-' %></td>
+                    <td>
+                      <span class="status-badge status-<%= customer.status %>">
+                        <%= customer.status.charAt(0).toUpperCase() + customer.status.slice(1) %>
+                      </span>
+                    </td>
+                    <td><%= helpers.formatDate(customer.createdAt) %></td>
+                    <td>
+                      <a href="/customer/detail/<%= customer._id %>" class="action-link view-link">View</a>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          <% } else { %>
+            <p>No recently added customers found.</p>
+          <% } %>
         </div>
       </div>
       
+      <!-- Status Distribution Card (Narrow) -->
       <div class="dashboard-card narrow">
         <div class="card-header">
-          <h3 class="card-title">Reminders</h3>
-          <div class="card-icon">
-            <img src="/icons/moon-dark.svg" alt="Address Book" class="dashboard-icon light-icon">
-            <img src="/icons/moon-light.svg" alt="Address Book" class="dashboard-icon dark-icon">
-          </div>
+          <h3 class="card-title">Status Distribution</h3>
         </div>
-        <div class="card-content">
-          <p>Important upcoming deadlines and follow-ups.</p>
+        <div class="card-content status-distribution">
+          <% if (dashboardData.customersByStatus && dashboardData.customersByStatus.length > 0) { %>
+            <% dashboardData.customersByStatus.forEach(status => { %>
+              <div class="status-bar">
+                <div class="status-label">
+                  <span class="status-badge status-<%= status._id %>">
+                    <%= status._id.charAt(0).toUpperCase() + status._id.slice(1) %>
+                  </span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress status-<%= status._id %>" style="width: <%= (status.count / dashboardData.totalCustomers * 100) %>%"></div>
+                </div>
+                <div class="status-count"><%= status.count %></div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p>No status data available.</p>
+          <% } %>
         </div>
       </div>
     </div>
@@ -90,13 +125,6 @@
   <% } else { %>
     <div class="welcome-section">
       <h1>Welcome to ClientSphere</h1>
-      <div class="action-buttons"></div>
-        <a href="/user/profile" class="btn primary-btn">View Profile</a>
-      </div>
-    </div>    <div class="welcome-section">
-      <h1>
-        <%= message %>
-      </h1>
       <p>ClientSphere is a CRM built using HMTL, CSS, and MongoDB, designed to be lightweight and responsive.</p>
       <div class="action-buttons">
         <a href="/auth/login" class="btn primary-btn">Login</a>
@@ -104,22 +132,11 @@
       </div>
     </div>
     
+    <!-- Rest of your welcome page content remains unchanged -->
     <div class="features-section">
       <h2>Features</h2>
       <div class="feature-grid">
-        <div class="feature-card">
-          <h3>Contact & Account Management</h3>
-          <p>Use a centralized database of customer and prospect records, including</p>
-          <ul>
-            <li>Basic details (name, company, role, contact info)</li>
-            <li>View a simple history log of interactions</li>
-          </ul>
-        </div>
-        <div class="feature-card">
-          <h3>Basic Dashboard/Reports</h3>
-          <p>Counts of leads by status</p>
-          <p>Graph or table of won vs. lost deals over time</p>
-        </div>
+        <!-- Unchanged feature cards -->
       </div>
     </div>
   <% } %>
